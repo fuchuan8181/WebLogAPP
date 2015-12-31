@@ -13,6 +13,8 @@ public class MiddleDataVector {
 			m_instance=new MiddleDataVector();
 		return m_instance; 
 	}
+	
+	
 	private MiddleDataVector()
 	{
 		m_element=new Vector();

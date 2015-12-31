@@ -47,7 +47,30 @@ public class IISLog implements LogReadIFace{
                 	//为版本信息不做处理
                  } else {
                     //日志信息存入中间向量
+                	 //这段写的越看越觉得搞笑
+                	 //一定会改的。。。
+                	 String b[] = tempString.split(" ");
+                	 LogDataItem iData=new LogDataItem();
                 	 
+                     StringBuffer date = new StringBuffer();
+                     for (int i = 0; i < 2; i++) {
+                         date.append(String.valueOf(i));
+                     }
+                     iData.data=date.toString();
+                	 iData.server_ip=b[3];
+                	 iData. request_method=b[5];//请求方式
+                	 iData.uri_request=b[6];//请求的url，被访问的资源
+                	 
+                	 int i=Integer.parseInt(b[8]);
+                	 
+                	 iData. server_port=i;//服务器端口： 服务端提供服务的传输层端口
+                	 iData.client_ip=b[10];//客户端ip
+                	 iData.User_Agent=b[11];//客户端所用的浏览器版本信息
+                	 
+                	 i=Integer.parseInt(b[12]);
+                	 iData. status=(i);//行为执行后的返回状态
+
+
                  }
 
 
