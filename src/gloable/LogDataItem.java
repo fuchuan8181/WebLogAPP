@@ -14,6 +14,10 @@ public class LogDataItem {
 	public String User_Agent;//客户端所用的浏览器版本信息
 	public String status;//行为执行后的返回状态
 	
+	public String isIdentityCheck;//apache日志格式专有
+	public String url_request;//apache
+	public String http_protocol;//apache
+	public String server_package;//apache
 	
 	public int date_num;//日期时间
 	public int time_num;//日期时间

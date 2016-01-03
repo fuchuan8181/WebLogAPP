@@ -91,7 +91,7 @@ public class IISLog implements LogReadIFace{
                 	 String splitstring[] = tempString.split(" ");//将读入文件行信息进行分割
                 	 
                      StringBuffer date = new StringBuffer();//将date和time信息拼接形成本系统标准时间信息
-					date.append(splitstring[iData.date_num]);
+					 date.append(splitstring[iData.date_num]);
                      date.append(" ");
                      date.append(splitstring[iData.time_num]);
                     
@@ -104,7 +104,7 @@ public class IISLog implements LogReadIFace{
                 	 iData.User_Agent=splitstring[iData.User_Agent_num];//客户端所用的浏览器版本信息
                 	 iData. status=(splitstring[iData.status_num]);//行为执行后的返回状态
                 	 //测试用例
-                	 System.out.println( iData.date);
+                	 System.out.println(iData.date);
                 	 System.out.println(iData.server_ip);
                 	 System.out.println(iData.request_method);
                 	 System.out.println(iData.uri_request);
