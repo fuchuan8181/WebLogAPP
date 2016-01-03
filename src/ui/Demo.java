@@ -23,9 +23,10 @@ import javax.swing.*;
 
 
 public class Demo extends JPanel {
-	JLabel filepath;//显示文本，图像，或两者兼而有
+	//JLabel filepath;//显示文本，图像，或两者兼而有
 	
 	JButton getfilepath;//获取文件路径
+	JButton Analysis;//分析文件
 	
 	static javax.swing.JFileChooser MyFile=new javax.swing.JFileChooser();
 	
@@ -36,10 +37,10 @@ public class Demo extends JPanel {
         String[] formatStrings = { "IIS", "Apache", "Nginx", "Tomcat" };
         final globleStatus iglobleStatus = new globleStatus();
  
-        //创建 combo box, 默认为第4个选项.
+        //创建 combo box, 默认为第1个选项.
 
         final JComboBox formatList = new JComboBox(formatStrings);
-        formatList.setSelectedIndex(3);//设定默认显示的index
+        formatList.setSelectedIndex(0);//设定默认显示的index
         iglobleStatus.setFileType(formatList.getSelectedIndex());
         
         //设置监听将选项，传入全局状态中的日志格式
@@ -56,20 +57,25 @@ public class Demo extends JPanel {
          getfilepath.addActionListener(new GetfilepathActionListener());
          getfilepath.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
          
+         Analysis = new JButton("载入并分析");
+         Analysis.addActionListener(new analysisActionListener());
+         Analysis.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+         
  
         //暂时没有用
-        filepath = new JLabel();
+        /*filepath = new JLabel();
         filepath.setFont(filepath.getFont().deriveFont(Font.ITALIC));//设置字体大小
         filepath.setHorizontalAlignment(JLabel.CENTER);//设置标签内容沿 X 轴的对齐方式
 
         filepath.setBorder(BorderFactory.createEmptyBorder(30,0,0,0));//创建一个占用空间但没有绘制的空边框，指定了顶线、底线、左边框线和右边框线的宽度。
         filepath.setPreferredSize(new Dimension(177, 122));//设置此组件的首选大小。
+        */
  
         //布局，将控件都丢进Jpanel，panel作为一个容器使用
         //Jpanel是一个静态控制组件，可以用来显示一行静态信息，不能接受用户的输入。它必须放在象JFrame这样的顶级窗口上才能输出。
         add(formatList, BorderLayout.PAGE_START);//组件出现在第一行布局内容之前
         add(getfilepath,BorderLayout.CENTER);
-        add(filepath, BorderLayout.PAGE_END);//组件出现在最后一行布局内容之后
+        add(Analysis,BorderLayout.PAGE_END);
         setBorder(BorderFactory.createEmptyBorder(40,40,40,40));
 	}
 	
@@ -85,10 +91,29 @@ public class Demo extends JPanel {
                 globleStatus IglobleStatus = new globleStatus();
                 IglobleStatus.setFilename(f.getAbsolutePath());//把日志的绝对路径给全局状态
                 
+
+            }
+        } 
+    }
+	
+	private class analysisActionListener implements ActionListener{  
+        public void actionPerformed(ActionEvent e) {  
+            System.out.println("你按了确认");   
+            globleStatus theglostatus=new globleStatus();
+            String theFilename=theglostatus.getFilename();
+            if(theFilename != null)
+            {
                 MyDialog iDialog = new MyDialog();
                 iDialog.run();//run就是那个第一步第二步第三步的主流程
             }
-        } 
+            else 
+            {
+            	 JOptionPane.showMessageDialog(null, "请先选择日志文件!", "错误信息",
+                         JOptionPane.ERROR_MESSAGE);
+            }
+                
+            }
+
     }
 
 

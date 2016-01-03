@@ -6,7 +6,7 @@ import java.util.Vector;
 public class MiddleDataVector {
 	public Vector m_element;
 
-	private static MiddleDataVector m_instance;
+	private static MiddleDataVector m_instance;//看不懂这是干啥的
 	public static MiddleDataVector getInstance()
 	{
 		if (m_instance==null)

@@ -57,7 +57,7 @@ public class MyDialog extends JPanel {
 	
 	public void run()
 	{
-		System.out.println("ok");
+		System.out.println("run is ok");
 		String fileName="";
 		int fileType;
 		/*********************
@@ -69,8 +69,11 @@ public class MyDialog extends JPanel {
 		fileName=iglobleStatus.getFilename();
 		fileType=iglobleStatus.getFileType();
 		
+		System.out.printf("%s and %d",fileName,fileType);
+		
 		LogReadIFace obj=ObjectFactory.getLogFileOperationInstance(fileType);
 		obj.readAndAnalysis(fileName); 
+		System.out.println("analysis is ok");
 
 		/*********************
 		 * 第二步：日志数据读取且分析
