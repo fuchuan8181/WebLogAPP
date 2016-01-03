@@ -19,23 +19,8 @@ import logic.LogReadIFace;
 import logic.ObjectFactory;
 
 public class MyDialog extends JPanel {
-	javax.swing.JButton m_btn1=new javax.swing.JButton();
-	javax.swing.JButton m_btn2=new javax.swing.JButton();
-	public MyDialog()
-	{
-		/*this.setSize(600, 400);
-		m_btn1.setLocation(10, 100);
-		m_btn1.setSize(100, 30);
-		m_btn2.setLocation(10, 100);
-		m_btn2.setSize(100, 30);
-		this.add(m_btn1);
-		this.add(m_btn2);
-		m_btn1.setVisible(true);
-		m_btn2.setVisible(true); */
-	}
-	
 
-	
+
 	public static void createAndShowGUI() {
         //Create and set up the window.
 		
@@ -57,7 +42,7 @@ public class MyDialog extends JPanel {
 	
 	public void run()
 	{
-		System.out.println("run is ok");
+
 		String fileName="";
 		int fileType;
 		/*********************
@@ -65,15 +50,13 @@ public class MyDialog extends JPanel {
 		 * 输入：文件名和格式
 		 * 输出：中间格式数据-存储到一定的中间结果存储区域
 		 * *******************/
-		globleStatus iglobleStatus = new globleStatus();
-		fileName=iglobleStatus.getFilename();
-		fileType=iglobleStatus.getFileType();
-		
-		System.out.printf("%s and %d",fileName,fileType);
-		
+
+		fileName=globleStatus.getFilename();
+		fileType=globleStatus.getFileType();
+	
 		LogReadIFace obj=ObjectFactory.getLogFileOperationInstance(fileType);
 		obj.readAndAnalysis(fileName); 
-		System.out.println("analysis is ok");
+
 
 		/*********************
 		 * 第二步：日志数据读取且分析

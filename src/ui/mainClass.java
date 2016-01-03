@@ -10,12 +10,9 @@ public class mainClass {
 		 javax.swing.SwingUtilities.invokeLater(new Runnable() {//事件派发线程
 	            public void run() {
 		MyDialog myDlg=new MyDialog();
-		myDlg.createAndShowGUI();
-		//myDlg.setVisible(true);
-		//myDlg.run();
-	            }
-		
+		myDlg.createAndShowGUI();//创建UI界面
 
+	            }
 	        });
 	}
 

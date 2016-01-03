@@ -37,8 +37,7 @@ public class Demo extends JPanel {
         String[] formatStrings = { "IIS", "Apache", "Nginx", "Tomcat" };
         final globleStatus iglobleStatus = new globleStatus();
  
-        //创建 combo box, 默认为第1个选项.
-
+        //创建 combo box选择日志格式, 默认为第1个选项.
         final JComboBox formatList = new JComboBox(formatStrings);
         formatList.setSelectedIndex(0);//设定默认显示的index
         iglobleStatus.setFileType(formatList.getSelectedIndex());
@@ -52,11 +51,11 @@ public class Demo extends JPanel {
             }  
         });
         
-        // 创建按钮
+        // 创建选择日志文件按钮
          getfilepath = new JButton("选择日志文件");
          getfilepath.addActionListener(new GetfilepathActionListener());
          getfilepath.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-         
+         //创建执行分析过程按钮
          Analysis = new JButton("载入并分析");
          Analysis.addActionListener(new analysisActionListener());
          Analysis.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
@@ -81,32 +80,30 @@ public class Demo extends JPanel {
 	
 
 
-//按钮监听内容
+//选择日志文件按钮监听内容
 	private class GetfilepathActionListener implements ActionListener{  
         public void actionPerformed(ActionEvent e) {  
             System.out.println("你按了按钮");   
             MyFile.showOpenDialog(null);  //弹出文件选择
-            File f = MyFile.getSelectedFile();  //得到
+            File f = MyFile.getSelectedFile();  //得到文件
             if(f != null){
-                globleStatus IglobleStatus = new globleStatus();
-                IglobleStatus.setFilename(f.getAbsolutePath());//把日志的绝对路径给全局状态
-                
-
+                globleStatus.setFilename(f.getAbsolutePath());//把日志的绝对路径给全局状态
+               
             }
         } 
     }
-	
+	//执行分析过程按钮监听内容
 	private class analysisActionListener implements ActionListener{  
         public void actionPerformed(ActionEvent e) {  
             System.out.println("你按了确认");   
-            globleStatus theglostatus=new globleStatus();
-            String theFilename=theglostatus.getFilename();
+
+            String theFilename=globleStatus.getFilename();//得到文件路径
             if(theFilename != null)
             {
                 MyDialog iDialog = new MyDialog();
                 iDialog.run();//run就是那个第一步第二步第三步的主流程
             }
-            else 
+            else //若文件未选择或不存在则显示错误信息
             {
             	 JOptionPane.showMessageDialog(null, "请先选择日志文件!", "错误信息",
                          JOptionPane.ERROR_MESSAGE);
