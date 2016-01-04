@@ -19,6 +19,16 @@ public class LogDataItem {
 	public String http_protocol;//apache
 	public String server_package;//apache
 	
+	public String package_sent;//tomcat日志格式专有
+	public String package_sent_excludingHTTPheaders;//tomcat
+	public String server_name;//tomcat
+	public String identity_name;//tomcat官方说always return '-' 官方解释：Remote logical username from identified
+	public String querystring;//tomcat访问的是aaa.jsp?bbb=ccc，这里就显示?bbb=ccc
+	public String session_ID;//tomcat
+	public String identified_name;//tomcat得到了验证的访问者，否则就是"-"
+	public String domain_name;//tomcat
+	public String time_request_inMillis;//tomcat访问发生的时间，以毫秒记
+	
 	public int date_num;//日期时间
 	public int time_num;//日期时间
 	public int server_ip_num;//服务器ip

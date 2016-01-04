@@ -2,19 +2,13 @@ package logic;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.sun.corba.se.spi.orb.StringPair;
-
 import gloable.LogDataItem;
 import gloable.MiddleDataVector;
 
 public class ApacheLog implements LogReadIFace{
-
+	@Override
 	public void readAndAnalysis(String fileName) {
 		// TODO Auto-generated method stub
 		File file = new File(fileName);
@@ -53,8 +47,10 @@ public class ApacheLog implements LogReadIFace{
 				
 				MiddleDataVector vector=MiddleDataVector.getInstance();
             	vector.addElement(iData);//存入中间变量Vector
-			}	
-		} catch (IOException e) {
+			}
+			reader.close();
+		} 
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
