@@ -22,6 +22,21 @@ public class Nginxlog implements LogReadIFace {
             	 
             	 String[] tempstring_array = tempString.split(" ");
             	 iData.client_ip = tempstring_array[0];
+            	 iData.identified_name = tempstring_array[2];
+            	 iData.date = tempstring_array[3].replace("[","");
+            	 iData.request_method = tempstring_array[5].replace("\"","");
+            	 iData.url_request = tempstring_array[6];
+            	 iData.http_protocol = tempstring_array[7].replace("\"","");
+            	 iData.status = tempstring_array[8];
+            	 iData.server_package = tempstring_array[9];
+            	 iData.http_referer = tempstring_array[10];
+            	 
+            	 StringBuffer UserAgent = new StringBuffer();//将客户端系统信息
+            	 
+            	 for(int i = 11;i < tempstring_array.length ;i ++)
+            		 UserAgent.append(tempstring_array[i].replace("\"",""));
+                
+                 iData.User_Agent=UserAgent.toString();  	 
             	 
              }
         reader.close();

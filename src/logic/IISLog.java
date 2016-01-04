@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import gloable.Month;
 import gloable.LogDataItem;
 import gloable.MiddleDataVector;
 
@@ -65,7 +66,7 @@ public class IISLog implements LogReadIFace{
                          case "time":iData.time_num = i;
                          case "s-ip":iData.server_ip_num = i;
                          case "cs-method":iData.request_method_num = i;
-                         case "cs-uri-stem":iData.uri_request_num = i;
+                         case "cs-uri-stem":iData.url_request_num = i;
                          case "s-port":iData.server_port_num = i;
                          case "c-ip":iData.client_ip_num = i;
                          case "cs(User-Agent)":iData.User_Agent_num = i;
@@ -88,26 +89,33 @@ public class IISLog implements LogReadIFace{
                 if (!m_file.find( )) {
 
                     //日志信息存入中间向量
-                	 String splitstring[] = tempString.split(" ");//将读入文件行信息进行分割
+                	 String tempstring_array[] = tempString.split(" ");//将读入文件行信息进行分割\
+                	 String datestring[] =tempstring_array[iData.date_num].split("-") ;
+                	 Month mon = null;
                 	 
                      StringBuffer date = new StringBuffer();//将date和time信息拼接形成本系统标准时间信息
-					 date.append(splitstring[iData.date_num]);
-                     date.append(" ");
-                     date.append(splitstring[iData.time_num]);
+                     
+                     date.append(datestring[2]);
+         		    date.append("/");
+         		    date.append(mon.getName(Integer.valueOf(datestring[1]).intValue()));
+         		    date.append("/");
+         		    date.append(datestring[0]);
+         		    date.append(":");
+                     date.append(tempstring_array[iData.time_num]);
                     
                      iData.date=date.toString();
-                	 iData.server_ip=splitstring[iData.server_ip_num];//服务器ip
-                	 iData. request_method=splitstring[iData.request_method_num];//请求方式
-                	 iData.uri_request=splitstring[iData.uri_request_num];//请求的url，被访问的资源        	 
-                	 iData. server_port=splitstring[iData.server_port_num];//服务器端口： 服务端提供服务的传输层端口
-                	 iData.client_ip=splitstring[iData.client_ip_num];//客户端ip
-                	 iData.User_Agent=splitstring[iData.User_Agent_num];//客户端所用的浏览器版本信息
-                	 iData. status=(splitstring[iData.status_num]);//行为执行后的返回状态
+                	 iData.server_ip=tempstring_array[iData.server_ip_num];//服务器ip
+                	 iData. request_method=tempstring_array[iData.request_method_num];//请求方式
+                	 iData.url_request=tempstring_array[iData.url_request_num];//请求的url，被访问的资源        	 
+                	 iData. server_port=tempstring_array[iData.server_port_num];//服务器端口： 服务端提供服务的传输层端口
+                	 iData.client_ip=tempstring_array[iData.client_ip_num];//客户端ip
+                	 iData.User_Agent=tempstring_array[iData.User_Agent_num];//客户端所用的浏览器版本信息
+                	 iData. status=(tempstring_array[iData.status_num]);//行为执行后的返回状态
                 	 //测试用例
                 	 System.out.println(iData.date);
                 	 System.out.println(iData.server_ip);
                 	 System.out.println(iData.request_method);
-                	 System.out.println(iData.uri_request);
+                	 System.out.println(iData.url_request);
                 	 System.out.println(iData.server_port);
                 	 System.out.println(iData.client_ip);
                 	 System.out.println(iData.User_Agent);
