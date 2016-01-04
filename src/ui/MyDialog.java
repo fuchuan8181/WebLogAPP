@@ -74,7 +74,7 @@ public class MyDialog extends JPanel {
 			}
 			if (lItem.bZHAN)
 			{
-				
+
 			}
 		}
 

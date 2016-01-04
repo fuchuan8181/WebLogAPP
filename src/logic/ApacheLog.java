@@ -19,7 +19,7 @@ public class ApacheLog implements LogReadIFace{
 		// TODO Auto-generated method stub
 		File file = new File(fileName);
 		LogDataItem iData = new LogDataItem();
-		boolean getformat = false;
+
 		try {
 			System.out.println("开始读取文件");
 			BufferedReader reader = new BufferedReader(new FileReader(file));
