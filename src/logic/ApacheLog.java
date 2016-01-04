@@ -20,6 +20,7 @@ public class ApacheLog implements LogReadIFace{
 			String tempstring = null;
 			while((tempstring = reader.readLine()) != null){
 				String[] tempstring_array = tempstring.split(" ");
+				
 				iData.client_ip =  tempstring_array[0];
 				iData.isIdentityCheck = tempstring_array[1] + tempstring_array[2];
 				iData.date = tempstring_array[3].replace("[", "") + tempstring_array[4].replace("]", "");

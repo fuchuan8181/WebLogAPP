@@ -14,6 +14,7 @@ public class Tomcatlog implements LogReadIFace {
 		File file = new File(fileName);
 		LogDataItem iData = new LogDataItem();
 		try {
+			System.out.println("开始读取文件");
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String tempstring = null;
 			while((tempstring = reader.readLine()) != null){
