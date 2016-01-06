@@ -1,7 +1,6 @@
 package gloable;
 
 import java.util.Vector;
- 
 
 public class MiddleDataVector {
 	public Vector m_element;
@@ -14,7 +13,6 @@ public class MiddleDataVector {
 		return m_instance; 
 	}
 	
-	
 	private MiddleDataVector()
 	{
 		m_element=new Vector();
@@ -24,6 +22,5 @@ public class MiddleDataVector {
 	{
 		m_element.addElement(x);
 	}
-	
 
 }
