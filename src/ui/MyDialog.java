@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import logic.IISLog;
 import logic.LogReadIFace;
 import logic.ObjectFactory;
+import logic.doc_Properties;
+import logic.judgement;
 
 public class MyDialog extends JPanel {
 
@@ -63,6 +65,15 @@ public class MyDialog extends JPanel {
 		 * 输入：中间格式数据
 		 * 输出：分析的结果 
 		 * *******************/
+		
+		doc_Properties doc = new doc_Properties();
+		doc.get_Properties();
+		//for(int j = 0;j < 3;j ++)
+		//System.out.println(globleStatus.attack_regex[0]);
+		
+		//judgement ijudge = new judgement();
+		//ijudge.Attackjudgment();
+		
 		MiddleDataVector instance=MiddleDataVector.getInstance();
 		for (int i=0;i<instance.m_element.size();i++)
 		{
@@ -72,7 +83,7 @@ public class MyDialog extends JPanel {
 			{
 				
 			}
-			if (lItem.bZHAN)
+			if (lItem.bXSS)
 			{
 
 			}

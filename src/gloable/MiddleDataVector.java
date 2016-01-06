@@ -23,4 +23,9 @@ public class MiddleDataVector {
 		m_element.addElement(x);
 	}
 
+	public int size() {
+		// TODO Auto-generated method stub
+		return m_element.size();
+	}
+
 }

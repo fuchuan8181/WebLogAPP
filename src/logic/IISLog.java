@@ -66,7 +66,8 @@ public class IISLog implements LogReadIFace{
                          case "time":iData.time_num = i;
                          case "s-ip":iData.server_ip_num = i;
                          case "cs-method":iData.request_method_num = i;
-                         case "cs-uri-stem":iData.url_request_num = i;
+                         case "cs-uri-stem":iData.url_query_request_num = i;
+                         case"cs-uri-query":iData.url_query_query_num = i;
                          case "s-port":iData.server_port_num = i;
                          case "c-ip":iData.client_ip_num = i;
                          case "cs(User-Agent)":iData.User_Agent_num = i;
@@ -106,12 +107,18 @@ public class IISLog implements LogReadIFace{
                      iData.date=date.toString();
                 	 iData.server_ip=tempstring_array[iData.server_ip_num];//服务器ip
                 	 iData. request_method=tempstring_array[iData.request_method_num];//请求方式
-                	 iData.url_request=tempstring_array[iData.url_request_num];//请求的url，被访问的资源        	 
+                	 
+                	 StringBuffer url = new StringBuffer();//
+                	 url.append(tempstring_array[iData.url_query_request_num]);
+                	 url.append(tempstring_array[iData.url_query_query_num]);
+                	 
+                	 iData.url_request=url.toString();//请求的url，被访问的资源        	 
                 	 iData. server_port=tempstring_array[iData.server_port_num];//服务器端口： 服务端提供服务的传输层端口
                 	 iData.client_ip=tempstring_array[iData.client_ip_num];//客户端ip
                 	 iData.User_Agent=tempstring_array[iData.User_Agent_num];//客户端所用的浏览器版本信息
                 	 iData. status=(tempstring_array[iData.status_num]);//行为执行后的返回状态
                 	 //测试用例
+                	 /****
                 	 System.out.println(iData.date);
                 	 System.out.println(iData.server_ip);
                 	 System.out.println(iData.request_method);
@@ -120,6 +127,7 @@ public class IISLog implements LogReadIFace{
                 	 System.out.println(iData.client_ip);
                 	 System.out.println(iData.User_Agent);
                 	 System.out.println(iData.status);
+                	 ***/
 
                 	 MiddleDataVector vector=MiddleDataVector.getInstance();
                 	 vector.addElement(iData);//存入中间变量Vector
