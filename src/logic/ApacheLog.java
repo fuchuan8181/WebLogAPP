@@ -47,7 +47,7 @@ public class ApacheLog implements LogReadIFace{
 				System.out.println(iData.User_Agent);
 				
 				MiddleDataVector vector=MiddleDataVector.getInstance();
-            	vector.addElement(iData);//存入中间变量Vector
+            	vector.addElement(iData);//存入中间变量Vector            	
 			}
 			reader.close();
 		} 
