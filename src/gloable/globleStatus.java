@@ -3,10 +3,11 @@ package gloable;
 public class globleStatus {
    private static String filename;
    public static int fileType;
-   public static String[] attack_regex = new String[3];
+   public static int regex_num = 10;
+   public static String[] attack_regex = new String[regex_num];
    //0 为sql注入
-   //1为xss跨站
-   //2为exec_command可执行目录
+   //1 为xss跨站
+   //2 为exec_command可执行目录
    
    public static int getFileType() {
 		return fileType;

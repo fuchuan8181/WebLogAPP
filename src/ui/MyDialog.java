@@ -68,9 +68,10 @@ public class MyDialog extends JPanel {
 		
 		doc_Properties doc = new doc_Properties();
 		doc.get_Properties();
-		//for(int j = 0;j < 3;j ++)
-		//System.out.println(globleStatus.attack_regex[0]);
-		
+
+		/*for(int j = 0;j < globleStatus.regex_num;j ++){
+			System.out.println(globleStatus.attack_regex[j]);
+			}*/
 		//judgement ijudge = new judgement();
 		//ijudge.Attackjudgment();
 		
