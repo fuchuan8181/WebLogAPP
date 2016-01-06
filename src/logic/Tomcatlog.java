@@ -17,6 +17,7 @@ public class Tomcatlog implements LogReadIFace {
 			System.out.println("开始读取文件");
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String tempstring = null;
+			IPLocate ipL = new IPLocate();
 			while((tempstring = reader.readLine()) != null){
 				String[] tempstring_array = tempstring.split(" ");
 				
@@ -38,8 +39,17 @@ public class Tomcatlog implements LogReadIFace {
 				iData.domain_name = tempstring_array[19];
 				iData.time_request_inMillis = tempstring_array[21];
 				
+				//IP定位模块
+           	 	String address = "";
+           	 	address = ipL.getAddresses("ip="+iData.client_ip, "utf-8");
+           	 	iData.address_full = address.replace("[", "").replace("]", "");
+	      	    int i = address.indexOf("[");
+	      	    int j = address.indexOf("]");
+	      	    iData.address_city = address.substring(i+1, j);
+				
 				//测试
-				System.out.println(iData.client_ip);
+				/**
+	      	    System.out.println(iData.client_ip);
 				System.out.println(iData.server_ip);
 				System.out.println(iData.package_sent);
 				System.out.println(iData.package_sent_excludingHTTPheaders);
@@ -56,6 +66,9 @@ public class Tomcatlog implements LogReadIFace {
 				System.out.println(iData.url_request);
 				System.out.println(iData.domain_name);
 				System.out.println(iData.time_request_inMillis);
+				System.out.println(iData.address_full);
+     	      	System.out.println(iData.address_city);
+				**/
 				
 				MiddleDataVector vector=MiddleDataVector.getInstance();
            	 	vector.addElement(iData);//存入中间变量Vector

@@ -18,6 +18,7 @@ public class ApacheLog implements LogReadIFace{
 			System.out.println("开始读取文件");
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String tempstring = null;
+			IPLocate ipL = new IPLocate();
 			while((tempstring = reader.readLine()) != null){
 				String[] tempstring_array = tempstring.split(" ");
 				
@@ -35,7 +36,16 @@ public class ApacheLog implements LogReadIFace{
 				}
 				iData.User_Agent = ua;
 				
+				//IP定位模块
+           	 	String address = "";
+           	 	address = ipL.getAddresses("ip="+iData.client_ip, "utf-8");
+           	 	iData.address_full = address.replace("[", "").replace("]", "");
+	      	    int i = address.indexOf("[");
+	      	    int j = address.indexOf("]");
+	      	    iData.address_city = address.substring(i+1, j);
+				
 				//测试
+				/**
 				System.out.println(iData.client_ip);
 				System.out.println(iData.isIdentityCheck);
 				System.out.println(iData.date);
@@ -45,6 +55,9 @@ public class ApacheLog implements LogReadIFace{
 				System.out.println(iData.status);
 				System.out.println(iData.server_package);
 				System.out.println(iData.User_Agent);
+				System.out.println(iData.address_full);
+     	      	System.out.println(iData.address_city);
+				**/
 				
 				MiddleDataVector vector=MiddleDataVector.getInstance();
             	vector.addElement(iData);//存入中间变量Vector            	

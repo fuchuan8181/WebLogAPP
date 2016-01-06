@@ -83,6 +83,9 @@ public class IISLog implements LogReadIFace{
             {
             //因系统信息均在文件初始位置，得到格式信息后可继续读入，不必改变文件读入指针位置
             // 继续读入文件，直到读入null为文件结束
+           
+           IPLocate ipL = new IPLocate();
+            	
            while ((tempString = reader.readLine()) != null) {
 
                 Matcher m_file = r_file.matcher(tempString);
@@ -117,7 +120,16 @@ public class IISLog implements LogReadIFace{
                 	 iData.client_ip=tempstring_array[iData.client_ip_num];//客户端ip
                 	 iData.User_Agent=tempstring_array[iData.User_Agent_num];//客户端所用的浏览器版本信息
                 	 iData. status=(tempstring_array[iData.status_num]);//行为执行后的返回状态
-                	 //测试用例
+                	 
+                	 //IP定位模块
+                	 String address = "";
+                	 address = ipL.getAddresses("ip="+iData.client_ip, "utf-8");
+                	 iData.address_full = address.replace("[", "").replace("]", "");
+     	      	     int i = address.indexOf("[");
+     	      	     int j = address.indexOf("]");
+     	      	     iData.address_city = address.substring(i+1, j);
+                	 
+     	      	     //测试用例    	 
                 	 /****
                 	 System.out.println(iData.date);
                 	 System.out.println(iData.server_ip);
@@ -127,7 +139,9 @@ public class IISLog implements LogReadIFace{
                 	 System.out.println(iData.client_ip);
                 	 System.out.println(iData.User_Agent);
                 	 System.out.println(iData.status);
-                	 ***/
+                	 System.out.println(iData.address_full);
+     	      	     System.out.println(iData.address_city);
+     	      	     ***/
 
                 	 MiddleDataVector vector=MiddleDataVector.getInstance();
                 	 vector.addElement(iData);//存入中间变量Vector
