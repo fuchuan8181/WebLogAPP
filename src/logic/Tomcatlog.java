@@ -17,7 +17,7 @@ public class Tomcatlog implements LogReadIFace {
 			System.out.println("开始读取文件");
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String tempstring = null;
-			IPLocate ipL = new IPLocate();
+			//IPLocate ipL = new IPLocate();
 			while((tempstring = reader.readLine()) != null){
 				String[] tempstring_array = tempstring.split(" ");
 				
@@ -35,17 +35,19 @@ public class Tomcatlog implements LogReadIFace {
 				iData.session_ID = tempstring_array[14];
 				iData.date = tempstring_array[15].replace("[", "") + tempstring_array[16].replace("]", "");
 				iData.identified_name = tempstring_array[17];
-				iData.url_request = tempstring_array[18];
+				iData.url_query = tempstring_array[18];
 				iData.domain_name = tempstring_array[19];
 				iData.time_request_inMillis = tempstring_array[21];
 				
 				//IP定位模块
+				/**
            	 	String address = "";
            	 	address = ipL.getAddresses("ip="+iData.client_ip, "utf-8");
            	 	iData.address_full = address.replace("[", "").replace("]", "");
 	      	    int i = address.indexOf("[");
 	      	    int j = address.indexOf("]");
 	      	    iData.address_city = address.substring(i+1, j);
+	      	    ***/
 				
 				//测试
 				/**

@@ -5,16 +5,14 @@ import java.awt.BorderLayout;
 
 import gloable.globleStatus;
 
-import java.awt.Dimension;
-import java.awt.Font;
+
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
+
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
+
 import javax.swing.JPanel;
 
-import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 
@@ -35,19 +33,19 @@ public class Demo extends JPanel {
         super(new BorderLayout());//调用父类的构造方法
         
         String[] formatStrings = { "IIS", "Apache", "Nginx", "Tomcat" };
-        final globleStatus iglobleStatus = new globleStatus();
+
  
         //创建 combo box选择日志格式, 默认为第1个选项.
-        final JComboBox formatList = new JComboBox(formatStrings);
+        final JComboBox<String> formatList = new JComboBox<String>(formatStrings);
         formatList.setSelectedIndex(0);//设定默认显示的index
-        iglobleStatus.setFileType(formatList.getSelectedIndex());
+        globleStatus.setFileType(formatList.getSelectedIndex());
         
         //设置监听将选项，传入全局状态中的日志格式
         formatList.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e) {  
                 int petName = formatList.getSelectedIndex();
                 //System.out.printf("你选择了%d",petName);
-                iglobleStatus.setFileType(petName);
+                globleStatus.setFileType(petName);
             }  
         });
         

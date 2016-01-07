@@ -1,20 +1,17 @@
 package ui;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
 
 import gloable.LogDataItem;
 import gloable.MiddleDataVector;
 import gloable.globleStatus;
 
 import javax.swing.JComponent;
-import javax.swing.JDialog;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import logic.IISLog;
+
 import logic.LogReadIFace;
 import logic.ObjectFactory;
 import logic.doc_Properties;
@@ -69,11 +66,12 @@ public class MyDialog extends JPanel {
 		doc_Properties doc = new doc_Properties();
 		doc.get_Properties();
 
-		/*for(int j = 0;j < globleStatus.regex_num;j ++){
+		for(int j = 0;j < globleStatus.regex_num;j ++){
 			System.out.println(globleStatus.attack_regex[j]);
-			}*/
-		//judgement ijudge = new judgement();
-		//ijudge.Attackjudgment();
+			}
+		
+		judgement ijudge = new judgement();
+		ijudge.Attackjudgment();
 		
 		MiddleDataVector instance=MiddleDataVector.getInstance();
 		for (int i=0;i<instance.m_element.size();i++)

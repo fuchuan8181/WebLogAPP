@@ -18,7 +18,7 @@ public class ApacheLog implements LogReadIFace{
 			System.out.println("开始读取文件");
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String tempstring = null;
-			IPLocate ipL = new IPLocate();
+			//IPLocate ipL = new IPLocate();
 			while((tempstring = reader.readLine()) != null){
 				String[] tempstring_array = tempstring.split(" ");
 				
@@ -26,7 +26,7 @@ public class ApacheLog implements LogReadIFace{
 				iData.isIdentityCheck = tempstring_array[1] + tempstring_array[2];
 				iData.date = tempstring_array[3].replace("[", "") + tempstring_array[4].replace("]", "");
 				iData.request_method = tempstring_array[5].replace("\"", "");
-				iData.url_request = tempstring_array[6];
+				iData.url_query = tempstring_array[6];
 				iData.http_protocol = tempstring_array[7].replace("\"", "");
 				iData.status = tempstring_array[8];
 				iData.server_package = tempstring_array[9];
@@ -37,13 +37,14 @@ public class ApacheLog implements LogReadIFace{
 				iData.User_Agent = ua;
 				
 				//IP定位模块
+				/***
            	 	String address = "";
            	 	address = ipL.getAddresses("ip="+iData.client_ip, "utf-8");
            	 	iData.address_full = address.replace("[", "").replace("]", "");
 	      	    int i = address.indexOf("[");
 	      	    int j = address.indexOf("]");
 	      	    iData.address_city = address.substring(i+1, j);
-				
+				****/
 				//测试
 				/**
 				System.out.println(iData.client_ip);

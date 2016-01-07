@@ -18,7 +18,7 @@ public class Nginxlog implements LogReadIFace {
         try {
         	 reader = new BufferedReader(new FileReader(file));
              LogDataItem iData=new LogDataItem();
-             IPLocate ipL = new IPLocate();
+             //IPLocate ipL = new IPLocate();
              while ((tempString = reader.readLine()) != null) {
             	 
             	 String[] tempstring_array = tempString.split(" ");
@@ -26,7 +26,7 @@ public class Nginxlog implements LogReadIFace {
             	 iData.identified_name = tempstring_array[2];
             	 iData.date = tempstring_array[3].replace("[","");
             	 iData.request_method = tempstring_array[5].replace("\"","");
-            	 iData.url_request = tempstring_array[6];
+            	 iData.url_query = tempstring_array[6];
             	 iData.http_protocol = tempstring_array[7].replace("\"","");
             	 iData.status = tempstring_array[8];
             	 iData.server_package = tempstring_array[9];
@@ -39,13 +39,14 @@ public class Nginxlog implements LogReadIFace {
                 
                  iData.User_Agent=UserAgent.toString();
                  //IP¶¨Î»Ä£¿é
+                 /**
             	 String address = "";
             	 address = ipL.getAddresses("ip="+iData.client_ip, "utf-8");
             	 iData.address_full = address.replace("[", "").replace("]", "");
  	      	     int i = address.indexOf("[");
  	      	     int j = address.indexOf("]");
  	      	     iData.address_city = address.substring(i+1, j);
-            	 
+            	 ***/
              }
         reader.close();
     } catch (IOException e) {

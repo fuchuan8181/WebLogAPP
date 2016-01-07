@@ -9,7 +9,9 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import IPSeeker.IPSeeker;
 import gloable.Month;
+import gloable.globleStatus;
 import gloable.LogDataItem;
 import gloable.MiddleDataVector;
 
@@ -34,7 +36,8 @@ public class IISLog implements LogReadIFace{
             System.out.println("读文件~开始~：");
             reader = new BufferedReader(new FileReader(file));
             
-            LogDataItem iData=new LogDataItem();
+            LogDataItem iData;
+            globleStatus data_num = new globleStatus();
             boolean getformat = false;//确认日志格式已传入
             
          // 该正则表达式筛选出日志具体内容
@@ -62,16 +65,16 @@ public class IISLog implements LogReadIFace{
             		 for (int i = 0; i < formatstring.length; i++) {
                          switch(formatstring[i]){//匹配并存储int类型各参数位置数据
                          
-                         case "date":iData.date_num = i;
-                         case "time":iData.time_num = i;
-                         case "s-ip":iData.server_ip_num = i;
-                         case "cs-method":iData.request_method_num = i;
-                         case "cs-uri-stem":iData.url_query_request_num = i;
-                         case"cs-uri-query":iData.url_query_query_num = i;
-                         case "s-port":iData.server_port_num = i;
-                         case "c-ip":iData.client_ip_num = i;
-                         case "cs(User-Agent)":iData.User_Agent_num = i;
-                         case "sc-status":iData.status_num = i;
+                         case "date":data_num.date_num = i;
+                         case "time":data_num.time_num = i;
+                         case "s-ip":data_num.server_ip_num = i;
+                         case "cs-method":data_num.request_method_num = i;
+                         case "cs-uri-stem":data_num.url_stem_num = i;
+                         case"cs-uri-query":data_num.url_query_num = i;
+                         case "s-port":data_num.server_port_num = i;
+                         case "c-ip":data_num.client_ip_num = i;
+                         case "cs(User-Agent)":data_num.User_Agent_num = i;
+                         case "sc-status":data_num.status_num = i;
                          }
                      }
             		 getformat = true;
@@ -84,7 +87,9 @@ public class IISLog implements LogReadIFace{
             //因系统信息均在文件初始位置，得到格式信息后可继续读入，不必改变文件读入指针位置
             // 继续读入文件，直到读入null为文件结束
            
-           IPLocate ipL = new IPLocate();
+            IPSeeker ipseeker = new IPSeeker();
+          // IPLocate ipL = new IPLocate();
+      	 MiddleDataVector list=MiddleDataVector.getInstance();
             	
            while ((tempString = reader.readLine()) != null) {
 
@@ -94,58 +99,60 @@ public class IISLog implements LogReadIFace{
 
                     //日志信息存入中间向量
                 	 String tempstring_array[] = tempString.split(" ");//将读入文件行信息进行分割\
-                	 String datestring[] =tempstring_array[iData.date_num].split("-") ;
-                	 Month mon = null;
+                	 String datestring[] =tempstring_array[data_num.date_num].split("-") ;
+
                 	 
                      StringBuffer date = new StringBuffer();//将date和time信息拼接形成本系统标准时间信息
                      
                      date.append(datestring[2]);
          		    date.append("/");
-         		    date.append(mon.getName(Integer.valueOf(datestring[1]).intValue()));
+         		    date.append(Month.getName(Integer.valueOf(datestring[1]).intValue()));
          		    date.append("/");
          		    date.append(datestring[0]);
          		    date.append(":");
-                     date.append(tempstring_array[iData.time_num]);
-                    
+                     date.append(tempstring_array[data_num.time_num]);
+                     
+                     iData=new LogDataItem();
                      iData.date=date.toString();
-                	 iData.server_ip=tempstring_array[iData.server_ip_num];//服务器ip
-                	 iData. request_method=tempstring_array[iData.request_method_num];//请求方式
+                	 iData.server_ip=tempstring_array[data_num.server_ip_num];//服务器ip
+                	 iData. request_method=tempstring_array[data_num.request_method_num];//请求方式
                 	 
-                	 StringBuffer url = new StringBuffer();//
-                	 url.append(tempstring_array[iData.url_query_request_num]);
-                	 url.append(tempstring_array[iData.url_query_query_num]);
+
+                	 iData.url_stem = tempstring_array[data_num.url_stem_num];             	 
+                	 iData.url_query=tempstring_array[data_num.url_query_num];//请求的url，被访问的资源        	 
+                	 iData. server_port=tempstring_array[data_num.server_port_num];//服务器端口： 服务端提供服务的传输层端口
+                	 iData.client_ip=tempstring_array[data_num.client_ip_num];//客户端ip
+                	 iData.User_Agent=tempstring_array[data_num.User_Agent_num];//客户端所用的浏览器版本信息
+                	 iData. status=(tempstring_array[data_num.status_num]);//行为执行后的返回状态
                 	 
-                	 iData.url_request=url.toString();//请求的url，被访问的资源        	 
-                	 iData. server_port=tempstring_array[iData.server_port_num];//服务器端口： 服务端提供服务的传输层端口
-                	 iData.client_ip=tempstring_array[iData.client_ip_num];//客户端ip
-                	 iData.User_Agent=tempstring_array[iData.User_Agent_num];//客户端所用的浏览器版本信息
-                	 iData. status=(tempstring_array[iData.status_num]);//行为执行后的返回状态
-                	 
-                	 //IP定位模块
+                	 System.out.println("111111");
+                	 System.out.println(iData.client_ip);
+                	 //IP定位模块 老是超时先注释一下。。
+                	iData.address_full = ipseeker.getCountry(iData.client_ip);
+                	iData.address_city = ipseeker.getArea(iData.client_ip);
+                	 /****
                 	 String address = "";
                 	 address = ipL.getAddresses("ip="+iData.client_ip, "utf-8");
                 	 iData.address_full = address.replace("[", "").replace("]", "");
      	      	     int i = address.indexOf("[");
      	      	     int j = address.indexOf("]");
      	      	     iData.address_city = address.substring(i+1, j);
+     	      	     *****/
                 	 
-     	      	     //测试用例    	 
-                	 /****
+     	      	     //测试用例
+                	
                 	 System.out.println(iData.date);
                 	 System.out.println(iData.server_ip);
                 	 System.out.println(iData.request_method);
-                	 System.out.println(iData.url_request);
+                	// System.out.println(iData.url_request);
                 	 System.out.println(iData.server_port);
                 	 System.out.println(iData.client_ip);
                 	 System.out.println(iData.User_Agent);
                 	 System.out.println(iData.status);
                 	 System.out.println(iData.address_full);
      	      	     System.out.println(iData.address_city);
-     	      	     ***/
-
-                	 MiddleDataVector vector=MiddleDataVector.getInstance();
-                	 vector.addElement(iData);//存入中间变量Vector
-                	 
+     	      	  
+                	 list.addElement(iData);//存入中间变量Vector
                  }
             }
             }else//若未发现格式信息，则报告错误弹窗
@@ -165,5 +172,4 @@ public class IISLog implements LogReadIFace{
             }
         }
 	}
-
 }

@@ -1,9 +1,12 @@
 package gloable;
 
-import java.util.Vector;
+
+import java.util.LinkedList;
+import java.util.List;
+
 
 public class MiddleDataVector {
-	public Vector m_element;
+	public List<LogDataItem> m_element;
 
 	private static MiddleDataVector m_instance;//看不懂这是干啥的
 	public static MiddleDataVector getInstance()
@@ -15,17 +18,21 @@ public class MiddleDataVector {
 	
 	private MiddleDataVector()
 	{
-		m_element=new Vector();
+		m_element=new LinkedList<LogDataItem>();
 	}
 	
 	public void addElement(LogDataItem x)
 	{
-		m_element.addElement(x);
+		m_element.add(x);
 	}
 
 	public int size() {
 		// TODO Auto-generated method stub
 		return m_element.size();
+	}
+	
+	public void delete(int x){
+		m_element.remove(x);
 	}
 
 }

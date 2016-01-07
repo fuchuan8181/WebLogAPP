@@ -14,11 +14,12 @@ public class doc_Properties {
 			Enumeration enum1 = prop.propertyNames();//得到配置文件的名字
 			while(enum1.hasMoreElements()) {
 				String strKey = (String) enum1.nextElement();
+				System.out.println(strKey);
 			    globleStatus.attack_regex[count] = prop.getProperty(strKey);
+			    System.out.println(globleStatus.attack_regex[count]);
 			    //System.out.println(globleStatus.attack_regex[count]);
 			    count++;
 			    }
-            
         	} catch (Exception e) {
         		e.printStackTrace();  
         		}
