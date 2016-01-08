@@ -19,24 +19,12 @@ package IPSeeker;
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-
-
-/**
- * <pre>
- * 涓�鏉P鑼冨洿璁板綍锛屼笉浠呭寘鎷浗瀹跺拰鍖哄煙锛屼篃鍖呮嫭璧峰IP鍜岀粨鏉烮P
- * </pre>
- * 
- * @author luma
- */
 public class IPEntry {
     public String beginIp;
     public String endIp;
     public String country;
     public String area;
     
-    /**
-     * 鏋勯�犲嚱鏁�
-     */
     public IPEntry() {
         beginIp = endIp = country = area = "";
     }

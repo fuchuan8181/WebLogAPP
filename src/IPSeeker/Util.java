@@ -24,27 +24,8 @@ package IPSeeker;
 import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
 
-/**
- * 宸ュ叿绫伙紝鎻愪緵涓�浜涙柟渚跨殑鏂规硶锛屾湁浜涗富瑕佹槸鐢ㄤ簬璋冭瘯鐢ㄩ�旓紝鏈変簺涓嶆槸
- * 
- * @author luma
- * @author notXX
- */
 public class Util {
-
-	/**
-	 * 鏍规嵁鏌愮缂栫爜鏂瑰紡灏嗗瓧鑺傛暟缁勮浆鎹㈡垚瀛楃涓�
-	 * 
-	 * @param b
-	 *            瀛楄妭鏁扮粍
-	 * @param offset
-	 *            瑕佽浆鎹㈢殑璧峰浣嶇疆
-	 * @param len
-	 *            瑕佽浆鎹㈢殑闀垮害
-	 * @param encoding
-	 *            缂栫爜鏂瑰紡
-	 * @return 濡傛灉encoding涓嶆敮鎸侊紝杩斿洖涓�涓己鐪佺紪鐮佺殑瀛楃涓�
-	 */
+	
 	public static String getString(byte[] b, int offset, int len,
 			String encoding) {
 		try {
@@ -54,11 +35,6 @@ public class Util {
 		}
 	}
 
-	/**
-	 * @param ip
-	 *            ip鐨勫瓧鑺傛暟缁勫舰寮�
-	 * @return 瀛楃涓插舰寮忕殑ip
-	 */
 	public static String getIpStringFromBytes(byte[] ip) {
 		StringBuilder sb = new StringBuilder();
 		sb.delete(0, sb.length());
@@ -72,13 +48,6 @@ public class Util {
 		return sb.toString();
 	}
 
-	/**
-	 * 浠巌p鐨勫瓧绗︿覆褰㈠紡寰楀埌瀛楄妭鏁扮粍褰㈠紡
-	 * 
-	 * @param ip
-	 *            瀛楃涓插舰寮忕殑ip
-	 * @return 瀛楄妭鏁扮粍褰㈠紡鐨刬p
-	 */
 	public static byte[] getIpByteArrayFromString(String ip) {
 		byte[] ret = new byte[4];
 		StringTokenizer st = new StringTokenizer(ip, ".");
