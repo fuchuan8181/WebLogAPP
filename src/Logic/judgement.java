@@ -24,27 +24,24 @@ public class judgement {
 	       if(m.find())
 	       {
 	    	   switch(j){
-	    	   case 0: 
+	    	   case 1: 
 	    	   {
 	    		   v.bSQL = true;
-	    		   globleStatus.sql_url[k] = v.url_query;
-	    		   k ++;
+	    		   sta.statistic(statistics.sql_url, v.url_stem);
 	    		   sta.statistic(statistics.sql_arr, v.address_city);
 	    		   break;
 	    	   }
-	    	   case 1:  
+	    	   case 2:  
 	    	   {
 	    		   v.bXSS = true;
-	    		   globleStatus.xss_url[k] = v.url_query;
-	    		   k ++;
+	    		   sta.statistic(statistics.xss_url, v.url_stem);
 	    		   sta.statistic(statistics.xss_arr, v.address_city);
 	    		   break;
 	    	   }
-	    	   case 2:
+	    	   case 0:
 	    	   {
 	    		   v.bEXEC = true;
-	    		   globleStatus.exec_url[k] = v.url_query;
-	    		   k ++;
+	    		   sta.statistic(statistics.exec_url, v.url_stem);
 	    		   sta.statistic(statistics.exec_arr, v.address_city);
 	    		   break;
 	    	   }

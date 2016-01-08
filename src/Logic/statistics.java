@@ -11,6 +11,9 @@ public class statistics {
 	    public static Map<String, Integer> sql_arr = new HashMap<String, Integer>();
 	    public static Map<String, Integer> xss_arr = new HashMap<String, Integer>();
 	    public static Map<String, Integer> exec_arr = new HashMap<String, Integer>();
+	    public static Map<String, Integer> sql_url = new HashMap<String, Integer>();
+	    public static Map<String, Integer> xss_url = new HashMap<String, Integer>();
+	    public static Map<String, Integer> exec_url = new HashMap<String, Integer>();
 	    
 		/***public static List xss_arr = new ArrayList<City>();
 		public static List exec_arr = new ArrayList<City>();

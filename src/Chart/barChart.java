@@ -14,7 +14,8 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import Logic.statistics;;
+
+import Logic.statistics;
 
 public class barChart {
 	public void getBarChart(){

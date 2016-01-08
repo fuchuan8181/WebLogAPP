@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import com.sun.org.apache.xml.internal.resolver.Catalog;
+
 import Gloable.LogDataItem;
 import Gloable.MiddleDataVector;
 import Gloable.Month;
@@ -133,7 +135,8 @@ public class IISLog implements LogReadIFace{
                 	 //System.out.println(iData.date);
                 	 //System.out.println(iData.server_ip);
                 	 //System.out.println(iData.request_method);
-                	 //System.out.println(iData.url_request);
+                	 System.out.println(iData.url_stem);
+                	System.out.println(iData.url_query);
                 	 //System.out.println(iData.server_port);
                 	 //System.out.println(iData.client_ip);
                 	 //System.out.println(iData.User_Agent);

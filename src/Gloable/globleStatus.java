@@ -2,9 +2,10 @@ package Gloable;
 
 public class globleStatus {
 	
-	public static String[] sql_url;
+	/****public static String[] sql_url =new String[10];
 	public static String[] xss_url;
 	public static String[] exec_url;
+	****/
 	
 	public int date_num;//日期时间
 	public int time_num;//日期时间
