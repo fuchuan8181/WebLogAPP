@@ -39,6 +39,7 @@ public class Tomcatlog implements LogReadIFace {
 				iData.domain_name = tempstring_array[19];
 				iData.time_request_inMillis = tempstring_array[21];
 				
+				
 				//IP¶¨Î»Ä£¿é
 				/**
            	 	String address = "";
