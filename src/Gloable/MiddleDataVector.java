@@ -31,8 +31,4 @@ public class MiddleDataVector {
 		return m_element.size();
 	}
 	
-	public void delete(int x){
-		m_element.remove(x);
-	}
-
 }

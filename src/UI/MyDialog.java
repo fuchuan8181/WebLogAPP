@@ -34,7 +34,8 @@ public class MyDialog extends JPanel {
         frame.setContentPane(newContentPane);//JFrame是框架，不能直接添加控件，建立Jpanel的中间控件
  
         //Display the window.
-        frame.pack();//设置 Frame 为可以容纳所有组件的最小尺寸
+        frame.pack();
+        //frame.setSize(400,400);
         frame.setVisible(true);//设为可见
     }
 	
@@ -72,8 +73,9 @@ public class MyDialog extends JPanel {
 		judgement ijudge = new judgement();
 		ijudge.Attackjudgment();
 		
-		barChart chart = new barChart();
-		chart.getBarChart();
+		//barChart chart = new barChart();
+		//chart.getBarChart();
+		//new table();
 		
 		MiddleDataVector instance=MiddleDataVector.getInstance();
 		for (int i=0;i<instance.m_element.size();i++)
@@ -95,6 +97,7 @@ public class MyDialog extends JPanel {
 		 * 输入：分析的结果
 		 * 输出：根据输出类型来决定所做的输出 
 		 * *******************/
+		resultoutput show = new  resultoutput();
 	}
 
 }

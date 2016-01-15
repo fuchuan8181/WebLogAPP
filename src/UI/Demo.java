@@ -1,13 +1,19 @@
 package UI;
 
 
-import java.awt.BorderLayout;
+
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 
 import javax.swing.JComboBox;
 
 import javax.swing.JPanel;
+
+
 
 import Gloable.globleStatus;
 
@@ -18,17 +24,20 @@ import javax.swing.*;
 
 
 
-public class Demo extends JPanel {
+public class Demo  extends JPanel{
 	//JLabel filepath;//显示文本，图像，或两者兼而有
 	
 	JButton getfilepath;//获取文件路径
 	JButton Analysis;//分析文件
+	JButton showcitychart;//获取文件路径
+	JButton showattacktable;//分析文件
+	JTextField text=new JTextField(20);
 	
 	static javax.swing.JFileChooser MyFile=new javax.swing.JFileChooser();
 	
 	public Demo()
 	{
-        super(new BorderLayout());//调用父类的构造方法
+		super(new GridBagLayout());
         
         String[] formatStrings = { "IIS", "Apache", "Nginx", "Tomcat" };
 
@@ -36,6 +45,8 @@ public class Demo extends JPanel {
         //创建 combo box选择日志格式, 默认为第1个选项.
         final JComboBox<String> formatList = new JComboBox<String>(formatStrings);
         formatList.setSelectedIndex(0);//设定默认显示的index
+        formatList.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        formatList.setPreferredSize(new Dimension (100,48));
         globleStatus.setFileType(formatList.getSelectedIndex());
         
         //设置监听将选项，传入全局状态中的日志格式
@@ -50,28 +61,70 @@ public class Demo extends JPanel {
         // 创建选择日志文件按钮
          getfilepath = new JButton("选择日志文件");
          getfilepath.addActionListener(new GetfilepathActionListener());
-         getfilepath.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+         //getfilepath.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
          //创建执行分析过程按钮
          Analysis = new JButton("载入并分析");
          Analysis.addActionListener(new analysisActionListener());
-         Analysis.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+         //Analysis.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
          
- 
-        //暂时没有用
-        /*filepath = new JLabel();
-        filepath.setFont(filepath.getFont().deriveFont(Font.ITALIC));//设置字体大小
-        filepath.setHorizontalAlignment(JLabel.CENTER);//设置标签内容沿 X 轴的对齐方式
-
-        filepath.setBorder(BorderFactory.createEmptyBorder(30,0,0,0));//创建一个占用空间但没有绘制的空边框，指定了顶线、底线、左边框线和右边框线的宽度。
-        filepath.setPreferredSize(new Dimension(177, 122));//设置此组件的首选大小。
-        */
+         /***showattacktable= new JButton("显示各URL遭受攻击次数");
+         showattacktable.addActionListener(new analysisActionListener());
+         showattacktable.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+         
+         showcitychart= new JButton("显示各城市遭受攻击次数");
+         showcitychart.addActionListener(new analysisActionListener());
+         showcitychart.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+         ***/
+         
+         
+         text.setPreferredSize(new Dimension (270,26));
+         
  
         //布局，将控件都丢进Jpanel，panel作为一个容器使用
         //Jpanel是一个静态控制组件，可以用来显示一行静态信息，不能接受用户的输入。它必须放在象JFrame这样的顶级窗口上才能输出。
-        add(formatList, BorderLayout.PAGE_START);//组件出现在第一行布局内容之前
-        add(getfilepath,BorderLayout.CENTER);
-        add(Analysis,BorderLayout.PAGE_END);
-        setBorder(BorderFactory.createEmptyBorder(40,40,40,40));
+         /******
+         GridBagLayout layout = new GridBagLayout();
+         this.setLayout(layout);
+         this.add(formatList);//把组件添加进jframe
+         GridBagConstraints s_layout= new GridBagConstraints();
+       s_layout.fill = GridBagConstraints.BOTH;
+       s_layout.gridwidth=1;//该方法是设置组件水平所占用的格子数，如果为0，就说明该组件是该行的最后一个
+       s_layout.weightx = 0;//该方法设置组件水平的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
+       s_layout.weighty=0;//该方法设置组件垂直的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
+       layout.setConstraints(formatList, s_layout);//设置组件
+       *****/
+         GridBagLayout layout = new GridBagLayout();
+         this.setLayout(layout);
+         this.add(formatList);//把组件添加进jframe
+         this.add(text);
+         this.add(getfilepath);
+         this.add(Analysis);
+         //this.add(showcitychart);
+         //this.add(showattacktable);
+         
+         
+        GridBagConstraints s_layout= new GridBagConstraints();
+        s_layout.fill = GridBagConstraints.CENTER;
+        s_layout.gridwidth=1;//该方法是设置组件水平所占用的格子数，如果为0，就说明该组件是该行的最后一个
+        s_layout.weightx = 0;//该方法设置组件水平的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
+        s_layout.weighty=0;//该方法设置组件垂直的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
+        layout.setConstraints(formatList, s_layout);//设置组件
+        
+        s_layout.weightx = 1;
+        layout.setConstraints(text, s_layout);
+
+        s_layout.insets = new Insets(10,10,10,10);
+        s_layout.gridwidth=0;
+        layout.setConstraints(getfilepath, s_layout);
+        
+        s_layout.insets = new Insets(0,10,10,10);
+        layout.setConstraints(Analysis, s_layout);
+        
+        /***s_layout.gridwidth=1;
+        layout.setConstraints(showcitychart, s_layout);
+        s_layout.gridwidth=0;
+        layout.setConstraints(showattacktable, s_layout);
+        ***/
 	}
 	
 
@@ -84,7 +137,7 @@ public class Demo extends JPanel {
             File f = MyFile.getSelectedFile();  //得到文件
             if(f != null){
                 globleStatus.setFilename(f.getAbsolutePath());//把日志的绝对路径给全局状态
-               
+               text.setText(globleStatus.getFilename());
             }
         } 
     }
