@@ -82,7 +82,7 @@ public class MyDialog extends JPanel {
 		{
 			//有多条记录，每条记录单独执行一次循环体
 			LogDataItem lItem=(LogDataItem)(instance.m_element.get(i));
-			if (lItem.bSQL)
+			/****if (lItem.bSQL)
 			{
 				
 			}
@@ -90,6 +90,7 @@ public class MyDialog extends JPanel {
 			{
 
 			}
+			***/
 		}
 
 		/*********************

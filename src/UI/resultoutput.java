@@ -34,7 +34,16 @@ public class resultoutput {
 	public resultoutput()
 	{
 		MiddleDataVector vector=MiddleDataVector.getInstance();
-		Integer num = vector.size();
+		Integer num_temp = 0 ;//= vector.size();
+		for (int j = 0;j <vector.size(); j++)
+		{
+			LogDataItem v=(LogDataItem) vector.m_element.get(j);
+			if(v.bSQL == true)
+			{
+				num_temp ++;
+			}
+		}
+		Integer num = num_temp;
 		int i = 0;
 		 TableColumn column = null;  
 		title.setFont(new Font("黑体",Font.BOLD,32));
@@ -49,11 +58,11 @@ public class resultoutput {
 				tableData[i][1] =v.server_ip;
 				tableData[i][2] =v.request_method;
 				tableData[i][3] =v.url_stem;
-			tableData[i][4] = v.url_query;
-			tableData[i][5] ="sql注入攻击";
-			tableData[i][6] =v.status;
-			tableData[i][7] =v.User_Agent;
-			i ++;
+			    tableData[i][4] = v.url_query;
+			    tableData[i][5] ="sql注入攻击";
+			    tableData[i][6] =v.status;
+			    tableData[i][7] =v.User_Agent;
+			    i ++;
 				}
 	}
 			String[] columnTitle = {"访问时间","访问IP","请求方法","访问URL地址","提交参数","攻击方法","状态码","浏览器信息"};
@@ -109,15 +118,14 @@ public class resultoutput {
 	private class attackActionListener implements ActionListener{  
         public void actionPerformed(ActionEvent e) {  
             System.out.println("你按了攻击类型分析");   
-            barChart chart = new barChart();
-    		chart.getBarChart();
+            new table();
             }
     }
 	private class cityActionListener implements ActionListener{  
         public void actionPerformed(ActionEvent e) {  
             System.out.println("你按了城市攻击分析");   
-            new table();
+           barChart chart = new barChart();
+    		chart.getBarChart();
             }
     }
-
 }

@@ -16,6 +16,10 @@ public class MiddleDataVector {
 		return m_instance; 
 	}
 	
+	public void  Clear() {
+		m_element.clear();
+	}
+	
 	private MiddleDataVector()
 	{
 		m_element=new LinkedList<LogDataItem>();

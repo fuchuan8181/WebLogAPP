@@ -28,5 +28,15 @@ public class statistics {
 		   else
 			   map.put(str, (Integer)map.get(str) +1);
 		}
+		
+		public void Clear()
+		{
+			sql_arr.clear();
+			xss_arr.clear();
+			exec_arr.clear();
+			sql_url.clear();
+			xss_url.clear();
+			exec_url.clear();
+		}
 
 }

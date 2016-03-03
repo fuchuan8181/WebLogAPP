@@ -13,8 +13,7 @@ import javax.swing.JComboBox;
 
 import javax.swing.JPanel;
 
-
-
+import Gloable.MiddleDataVector;
 import Gloable.globleStatus;
 
 import java.awt.event.*;
@@ -67,14 +66,7 @@ public class Demo  extends JPanel{
          Analysis.addActionListener(new analysisActionListener());
          //Analysis.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
          
-         /***showattacktable= new JButton("显示各URL遭受攻击次数");
-         showattacktable.addActionListener(new analysisActionListener());
-         showattacktable.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-         
-         showcitychart= new JButton("显示各城市遭受攻击次数");
-         showcitychart.addActionListener(new analysisActionListener());
-         showcitychart.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-         ***/
+
          
          
          text.setPreferredSize(new Dimension (270,26));
@@ -138,6 +130,9 @@ public class Demo  extends JPanel{
             if(f != null){
                 globleStatus.setFilename(f.getAbsolutePath());//把日志的绝对路径给全局状态
                text.setText(globleStatus.getFilename());
+               //清空以往数据
+               MiddleDataVector vector_clear = MiddleDataVector.getInstance();
+               vector_clear.Clear();
             }
         } 
     }
@@ -157,12 +152,9 @@ public class Demo  extends JPanel{
             	 JOptionPane.showMessageDialog(null, "请先选择日志文件!", "错误信息",
                          JOptionPane.ERROR_MESSAGE);
             }
-                
             }
 
     }
-
-
     }
     
 
