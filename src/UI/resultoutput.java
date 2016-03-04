@@ -44,7 +44,9 @@ public class resultoutput {
 			}
 		}
 		Integer num = num_temp;
-		int i = 0;
+		int i_sql = 0;
+		int i_xss = 0;
+		int i_exec = 0;
 		 TableColumn column = null;  
 		title.setFont(new Font("黑体",Font.BOLD,32));
 		Object[][] tableData = new Object[num][8];
@@ -54,15 +56,39 @@ public class resultoutput {
 				LogDataItem v=(LogDataItem) vector.m_element.get(j);
 				if(v.bSQL == true)
 				{
-				tableData[i][0] = v.date;
-				tableData[i][1] =v.server_ip;
-				tableData[i][2] =v.request_method;
-				tableData[i][3] =v.url_stem;
-			    tableData[i][4] = v.url_query;
-			    tableData[i][5] ="sql注入攻击";
-			    tableData[i][6] =v.status;
-			    tableData[i][7] =v.User_Agent;
-			    i ++;
+				tableData[i_sql][0] = v.date;
+				tableData[i_sql][1] =v.server_ip;
+				tableData[i_sql][2] =v.request_method;
+				tableData[i_sql][3] =v.url_stem;
+			    tableData[i_sql][4] = v.url_query;
+			    tableData[i_sql][5] ="sql注入攻击";
+			    tableData[i_sql][6] =v.status;
+			    tableData[i_sql][7] =v.User_Agent;
+			    i_sql ++;
+				}
+				else if(v.bXSS == true)
+				{
+				tableData[i_xss][0] = v.date;
+				tableData[i_xss][1] =v.server_ip;
+				tableData[i_xss][2] =v.request_method;
+				tableData[i_xss][3] =v.url_stem;
+			    tableData[i_xss][4] = v.url_query;
+			    tableData[i_xss][5] ="sql注入攻击";
+			    tableData[i_xss][6] =v.status;
+			    tableData[i_xss][7] =v.User_Agent;
+			    i_xss ++;
+				}
+				else if(v.bEXEC == true)
+				{
+				tableData[i_exec][0] = v.date;
+				tableData[i_exec][1] =v.server_ip;
+				tableData[i_exec][2] =v.request_method;
+				tableData[i_exec][3] =v.url_stem;
+			    tableData[i_exec][4] = v.url_query;
+			    tableData[i_exec][5] ="sql注入攻击";
+			    tableData[i_exec][6] =v.status;
+			    tableData[i_exec][7] =v.User_Agent;
+			    i_exec ++;
 				}
 	}
 			String[] columnTitle = {"访问时间","访问IP","请求方法","访问URL地址","提交参数","攻击方法","状态码","浏览器信息"};
