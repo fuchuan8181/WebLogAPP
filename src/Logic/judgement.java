@@ -3,12 +3,18 @@ package Logic;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.sun.org.apache.xpath.internal.operations.String;
+
 import Gloable.LogDataItem;
 import Gloable.MiddleDataVector;
 import Gloable.globleStatus;
 
 public class judgement {
 	
+	public static Integer num_sql = 0 ;
+	public static Integer num_xss = 0 ;
+	public static Integer num_exec = 0 ;
+
 	public void Attackjudgment()
 	{
 		int k=0;
@@ -27,8 +33,9 @@ public class judgement {
 	    	   case 1: 
 	    	   {
 	    		   v.bSQL = true;
-	    		   sta.statistic(statistics.sql_url, v.url_stem);
+	    		   sta.statistic(statistics.sql_url, v.url_stem);//Ω´URL¥Ê»Îmap÷–
 	    		   sta.statistic(statistics.sql_arr, v.address_city);
+	    		   num_sql++;
 	    		   break;
 	    	   }
 	    	   case 2:  
@@ -36,6 +43,7 @@ public class judgement {
 	    		   v.bXSS = true;
 	    		   sta.statistic(statistics.xss_url, v.url_stem);
 	    		   sta.statistic(statistics.xss_arr, v.address_city);
+	    		   num_xss ++;
 	    		   break;
 	    	   }
 	    	   case 0:
@@ -43,6 +51,7 @@ public class judgement {
 	    		   v.bEXEC = true;
 	    		   sta.statistic(statistics.exec_url, v.url_stem);
 	    		   sta.statistic(statistics.exec_arr, v.address_city);
+	    		   num_exec++;
 	    		   break;
 	    	   }
 	    	   default: //vector.
@@ -53,6 +62,9 @@ public class judgement {
 			//System.out.println(v.bSQL);
 			//System.out.println(v.url_query);
 	     }
+		
+
+
 	}
 
 }

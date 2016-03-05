@@ -29,7 +29,7 @@ public class statistics {
 			   map.put(str, (Integer)map.get(str) +1);
 		}
 		
-		public void Clear()
+		public static void Clear()
 		{
 			sql_arr.clear();
 			xss_arr.clear();

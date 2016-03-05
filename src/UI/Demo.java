@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 
 import Gloable.MiddleDataVector;
 import Gloable.globleStatus;
+import Logic.judgement;
+import Logic.statistics;
 
 import java.awt.event.*;
 import java.io.File;
@@ -133,6 +135,10 @@ public class Demo  extends JPanel{
                //清空以往数据
                MiddleDataVector vector_clear = MiddleDataVector.getInstance();
                vector_clear.Clear();
+           	judgement.num_sql = 0 ;
+        	judgement.num_xss = 0 ;
+        	judgement.num_exec = 0 ;
+        	statistics.Clear();
             }
         } 
     }

@@ -19,9 +19,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
+
 import Chart.barChart;
 import Gloable.LogDataItem;
 import Gloable.MiddleDataVector;
+import Logic.judgement;
 
 
 public class resultoutput {
@@ -31,64 +33,60 @@ public class resultoutput {
 	JTable content;
 	JButton showcitychart;//获取文件路径
 	JButton showattacktable;//分析文件
+	
+	public  void saveobject(String a,String b,String c,String d,String e,String f,String g,String h,int i,Object[][] table){
+
+		table[i][0] = a;
+		table[i][1] =b;
+		table[i][2] =c;
+		table[i][3] =d;
+	    table[i][4] =e;
+	    table[i][5] =f;
+	    table[i][6] =g;
+	    table[i][7] =h;
+	}
+	
 	public resultoutput()
 	{
 		MiddleDataVector vector=MiddleDataVector.getInstance();
-		Integer num_temp = 0 ;//= vector.size();
-		for (int j = 0;j <vector.size(); j++)
-		{
-			LogDataItem v=(LogDataItem) vector.m_element.get(j);
-			if(v.bSQL == true)
-			{
-				num_temp ++;
-			}
-		}
-		Integer num = num_temp;
+
 		int i_sql = 0;
 		int i_xss = 0;
 		int i_exec = 0;
+		int i_all = 0;
+		
 		 TableColumn column = null;  
 		title.setFont(new Font("黑体",Font.BOLD,32));
-		Object[][] tableData = new Object[num][8];
+		
+		Object[][] sqlData = new Object[ judgement.num_sql][8];
+		Object[][] xssData = new Object[judgement.num_xss][8];
+		Object[][] execData = new Object[judgement.num_exec][8];
+		
+		Object[][] tableData = new Object[ judgement.num_sql + judgement.num_xss+judgement.num_exec][8];
 
 		for (int j = 0;j <vector.size(); j++)
 		{
 				LogDataItem v=(LogDataItem) vector.m_element.get(j);
 				if(v.bSQL == true)
 				{
-				tableData[i_sql][0] = v.date;
-				tableData[i_sql][1] =v.server_ip;
-				tableData[i_sql][2] =v.request_method;
-				tableData[i_sql][3] =v.url_stem;
-			    tableData[i_sql][4] = v.url_query;
-			    tableData[i_sql][5] ="sql注入攻击";
-			    tableData[i_sql][6] =v.status;
-			    tableData[i_sql][7] =v.User_Agent;
-			    i_sql ++;
+					 saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"sql注入攻击",v.status,v.User_Agent,i_sql,sqlData);
+					 saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"sql注入攻击",v.status,v.User_Agent,i_all,tableData);
+			          i_sql ++;
+			          i_all ++;
 				}
 				else if(v.bXSS == true)
 				{
-				tableData[i_xss][0] = v.date;
-				tableData[i_xss][1] =v.server_ip;
-				tableData[i_xss][2] =v.request_method;
-				tableData[i_xss][3] =v.url_stem;
-			    tableData[i_xss][4] = v.url_query;
-			    tableData[i_xss][5] ="sql注入攻击";
-			    tableData[i_xss][6] =v.status;
-			    tableData[i_xss][7] =v.User_Agent;
-			    i_xss ++;
+					saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"XSS跨站攻击",v.status,v.User_Agent,i_xss,xssData);
+				    saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"XSS跨站攻击",v.status,v.User_Agent,i_all,tableData);
+			         i_xss ++;
+			         i_all ++;
 				}
 				else if(v.bEXEC == true)
 				{
-				tableData[i_exec][0] = v.date;
-				tableData[i_exec][1] =v.server_ip;
-				tableData[i_exec][2] =v.request_method;
-				tableData[i_exec][3] =v.url_stem;
-			    tableData[i_exec][4] = v.url_query;
-			    tableData[i_exec][5] ="sql注入攻击";
-			    tableData[i_exec][6] =v.status;
-			    tableData[i_exec][7] =v.User_Agent;
-			    i_exec ++;
+					saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"可执行命令攻击",v.status,v.User_Agent,i_exec,execData);
+				    saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"可执行命令攻击",v.status,v.User_Agent,i_all,tableData);
+			        i_exec ++;
+			        i_all ++;
 				}
 	}
 			String[] columnTitle = {"访问时间","访问IP","请求方法","访问URL地址","提交参数","攻击方法","状态码","浏览器信息"};
@@ -139,6 +137,7 @@ public class resultoutput {
 		result.add(con,BorderLayout.CENTER);
 		result.add(but,BorderLayout.SOUTH);
 		result.setVisible(true);
+		
 	}
 
 	private class attackActionListener implements ActionListener{  

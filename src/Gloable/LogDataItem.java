@@ -2,10 +2,10 @@ package Gloable;
 
 public class LogDataItem {
 	
-	public boolean bSQL=false;
-    public boolean bXSS=false;
-    public boolean bEXEC = false;
-    public boolean bZK=false;
+	public boolean bSQL=false;//SQL×¢Èë¹¥»÷
+    public boolean bXSS=false;//XSS¿çÕ¾¹¥»÷
+    public boolean bEXEC = false;//¿ÉÖ´ĞĞÃüÁî¹¥»÷
+    public boolean bZK=false;//×²¿â¹¥»÷
     
     
 	public String date;//ÈÕÆÚÊ±¼ä
