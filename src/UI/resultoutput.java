@@ -23,6 +23,9 @@ import javax.swing.table.TableColumn;
 import Chart.barChart;
 import Gloable.LogDataItem;
 import Gloable.MiddleDataVector;
+import Gloable.execattacklist;
+import Gloable.sqlattacklist;
+import Gloable.xssattacklist;
 import Logic.judgement;
 
 
@@ -50,17 +53,15 @@ public class resultoutput {
 	{
 		MiddleDataVector vector=MiddleDataVector.getInstance();
 
-		int i_sql = 0;
-		int i_xss = 0;
-		int i_exec = 0;
+
 		int i_all = 0;
 		
 		 TableColumn column = null;  
 		title.setFont(new Font("ºÚÌå",Font.BOLD,32));
 		
-		Object[][] sqlData = new Object[ judgement.num_sql][8];
-		Object[][] xssData = new Object[judgement.num_xss][8];
-		Object[][] execData = new Object[judgement.num_exec][8];
+		sqlattacklist list_sql = sqlattacklist.getInstance();
+		xssattacklist list_xss = xssattacklist.getInstance();
+		execattacklist list_exec = execattacklist.getInstance();
 		
 		Object[][] tableData = new Object[ judgement.num_sql + judgement.num_xss+judgement.num_exec][8];
 
@@ -69,23 +70,22 @@ public class resultoutput {
 				LogDataItem v=(LogDataItem) vector.m_element.get(j);
 				if(v.bSQL == true)
 				{
-					 saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"sql×¢Èë¹¥»÷",v.status,v.User_Agent,i_sql,sqlData);
+					list_sql.addElement(v);
 					 saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"sql×¢Èë¹¥»÷",v.status,v.User_Agent,i_all,tableData);
-			          i_sql ++;
 			          i_all ++;
 				}
 				else if(v.bXSS == true)
 				{
-					saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"XSS¿çÕ¾¹¥»÷",v.status,v.User_Agent,i_xss,xssData);
+					list_xss.addElement(v);
 				    saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"XSS¿çÕ¾¹¥»÷",v.status,v.User_Agent,i_all,tableData);
-			         i_xss ++;
+
 			         i_all ++;
 				}
 				else if(v.bEXEC == true)
 				{
-					saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"¿ÉÖ´ÐÐÃüÁî¹¥»÷",v.status,v.User_Agent,i_exec,execData);
+					list_exec.addElement(v);
 				    saveobject(v.date,v.server_ip,v.request_method,v.url_stem,v.url_query,"¿ÉÖ´ÐÐÃüÁî¹¥»÷",v.status,v.User_Agent,i_all,tableData);
-			        i_exec ++;
+
 			        i_all ++;
 				}
 	}

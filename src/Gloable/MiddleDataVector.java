@@ -8,7 +8,7 @@ import java.util.List;
 public class MiddleDataVector {
 	public List<LogDataItem> m_element;
 
-	private static MiddleDataVector m_instance;//看不懂这是干啥的
+	private static MiddleDataVector m_instance;//这是MiddleDataVector类型的实例
 	public static MiddleDataVector getInstance()
 	{
 		if (m_instance==null)
