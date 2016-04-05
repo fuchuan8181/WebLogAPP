@@ -36,7 +36,7 @@ public class IISLog implements LogReadIFace{
 		File file = new File(fileName);
         BufferedReader reader = null;
         try {
-            System.out.println("读文件~开始~：");
+            //System.out.println("读文件~开始~：");
             reader = new BufferedReader(new FileReader(file));
             
             LogDataItem iData;
@@ -135,15 +135,15 @@ public class IISLog implements LogReadIFace{
                 	 //System.out.println(iData.date);
                 	 //System.out.println(iData.server_ip);
                 	 //System.out.println(iData.request_method);
-                	 System.out.println(iData.url_stem);
-                	System.out.println(iData.url_query);
+                	 //System.out.println(iData.url_stem);
+                	//System.out.println(iData.url_query);
                 	 //System.out.println(iData.server_port);
                 	 //System.out.println(iData.client_ip);
                 	 //System.out.println(iData.User_Agent);
                 	 //System.out.println(iData.status);
-                	 System.out.println(iData.address_full);
-     	      	     System.out.println(iData.address_city);
-     	      	     System.out.println(iData.address_ips);
+                	// System.out.println(iData.address_full);
+     	      	     //System.out.println(iData.address_city);
+     	      	     //System.out.println(iData.address_ips);
      	      	     
                 	 list.addElement(iData);//存入中间变量Vector
                  }

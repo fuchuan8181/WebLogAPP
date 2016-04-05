@@ -13,6 +13,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -52,7 +55,36 @@ public class resultoutput {
 	public resultoutput()
 	{
 		MiddleDataVector vector=MiddleDataVector.getInstance();
+		JMenuBar menubar = new JMenuBar();
 
+	   	 JMenu FileMenu = new JMenu("文件");
+	   	 JMenu SearchMenu = new JMenu("查找");
+	   	 JMenu StatisticMenu = new JMenu("统计");
+	   	 
+	   	JMenuItem SaveMenu= new JMenuItem("保存");
+      //CreateOneMenu.addActionListener(new CreateOneActionListener());
+      JMenuItem CloseMenu= new JMenuItem("关闭");
+      //CreateMultiMenu.addActionListener(new CreateMultiActionListener());
+      JMenuItem Acord2TimeMenu= new JMenuItem("按时间段查找");
+      JMenuItem Acord2IPAddMenu= new JMenuItem("按IP地址查找");
+      //JMenuItem ACord2AttackMenu= new JMenuItem("按攻击行为查找");
+      JMenuItem ACord2KeyMenu= new JMenuItem("按关键字查找");
+      JMenuItem StatisAddMenu= new JMenuItem("地域统计");
+      StatisAddMenu.addActionListener(new cityActionListener());
+      JMenuItem StaticURLMenu= new JMenuItem("URL统计");
+      StaticURLMenu.addActionListener(new attackActionListener());
+      
+      FileMenu.add(SaveMenu);
+      FileMenu.add(CloseMenu);
+      SearchMenu.add(Acord2TimeMenu);
+      SearchMenu.add(Acord2IPAddMenu);
+      SearchMenu.add(ACord2KeyMenu);
+      StatisticMenu.add(StatisAddMenu);
+      StatisticMenu.add(StaticURLMenu);
+      
+      menubar.add(FileMenu);
+      menubar.add(SearchMenu);
+      menubar.add(StatisticMenu);
 
 		int i_all = 0;
 		
@@ -126,29 +158,29 @@ public class resultoutput {
 		
 		JScrollPane jScrollPane;
 		
-		tit.add(title,BorderLayout.CENTER);
+	
 		con.add(jScrollPane = new JScrollPane(content));
-		but.add(showcitychart,BorderLayout.WEST);
-		but.add(showattacktable, BorderLayout.EAST);
-		but.setBorder(BorderFactory.createEmptyBorder(0,20,30,20));
+
+		con.setBorder(BorderFactory.createEmptyBorder(0,20,30,20));
 		
 		result.setSize(1500, 800);
-		result.add(tit,BorderLayout.NORTH);
+		result.add(menubar,BorderLayout.NORTH);
+		
 		result.add(con,BorderLayout.CENTER);
-		result.add(but,BorderLayout.SOUTH);
+		//result.add(but,BorderLayout.SOUTH);
 		result.setVisible(true);
 		
 	}
 
 	private class attackActionListener implements ActionListener{  
         public void actionPerformed(ActionEvent e) {  
-            System.out.println("你按了攻击类型分析");   
+            //System.out.println("你按了攻击类型分析");   
             new table();
             }
     }
 	private class cityActionListener implements ActionListener{  
         public void actionPerformed(ActionEvent e) {  
-            System.out.println("你按了城市攻击分析");   
+            //System.out.println("你按了城市攻击分析");   
            barChart chart = new barChart();
     		chart.getBarChart();
             }

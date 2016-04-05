@@ -39,6 +39,30 @@ public class Demo  extends JPanel{
 	public Demo()
 	{
 		super(new GridBagLayout());
+		
+		JMenuBar menubar = new JMenuBar();
+
+	   	 JMenu NewMenu = new JMenu("任务创建");
+	   	 JMenu UpdateMenu = new JMenu("升级管理");
+	   	 JMenu HelpMenu = new JMenu("关于");
+	   	 
+	   	JMenuItem CreateOneMenu= new JMenuItem("新建任务");
+       CreateOneMenu.addActionListener(new CreateOneActionListener());
+       JMenuItem CreateMultiMenu= new JMenuItem("新建多个文件任务");
+       CreateMultiMenu.addActionListener(new CreateMultiActionListener());
+       JMenuItem ExitMenu= new JMenuItem("退出");
+       JMenuItem UpdatePropertiesMenu= new JMenuItem("更新特征库");
+       JMenuItem AboutMenu= new JMenuItem("版本信息");
+       
+       NewMenu.add(CreateOneMenu);
+       NewMenu.add(CreateMultiMenu);
+       NewMenu.add(ExitMenu);
+       UpdateMenu.add(UpdatePropertiesMenu);
+       HelpMenu.add(AboutMenu);
+       
+       menubar.add(NewMenu);
+       menubar.add(UpdateMenu);
+       menubar.add(HelpMenu);
         
         String[] formatStrings = { "IIS", "Apache", "Nginx", "Tomcat" };
 
@@ -60,16 +84,19 @@ public class Demo  extends JPanel{
         });
         
         // 创建选择日志文件按钮
-         getfilepath = new JButton("选择日志文件");
+         getfilepath = new JButton("...");
          getfilepath.addActionListener(new GetfilepathActionListener());
          //getfilepath.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
          //创建执行分析过程按钮
-         Analysis = new JButton("载入并分析");
+         Analysis = new JButton("确定");
          Analysis.addActionListener(new analysisActionListener());
          //Analysis.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
          
-
+         String urlString="C://Users//dell//Desktop//论文答辩//log1.png";  
+         JLabel label=new JLabel(new ImageIcon(urlString));
          
+         JLabel info_1 = new JLabel("Huang Yanyu,All right reserved.");
+         JLabel info_2 = new JLabel("China University of Geosciences,2016.");
          
          text.setPreferredSize(new Dimension (270,26));
          
@@ -89,16 +116,26 @@ public class Demo  extends JPanel{
        *****/
          GridBagLayout layout = new GridBagLayout();
          this.setLayout(layout);
+         this.add(menubar);
+         this.add(label);
          this.add(formatList);//把组件添加进jframe
          this.add(text);
          this.add(getfilepath);
          this.add(Analysis);
-         //this.add(showcitychart);
+         this.add(info_1);
+         this.add(info_2);
          //this.add(showattacktable);
          
          
         GridBagConstraints s_layout= new GridBagConstraints();
+        
         s_layout.fill = GridBagConstraints.CENTER;
+        
+        s_layout.insets = new Insets(20,0,0,0);
+        s_layout.gridwidth=0;
+        layout.setConstraints(label, s_layout);
+        
+        s_layout.insets = new Insets(10,5,0,0);
         s_layout.gridwidth=1;//该方法是设置组件水平所占用的格子数，如果为0，就说明该组件是该行的最后一个
         s_layout.weightx = 0;//该方法设置组件水平的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
         s_layout.weighty=0;//该方法设置组件垂直的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
@@ -107,12 +144,21 @@ public class Demo  extends JPanel{
         s_layout.weightx = 1;
         layout.setConstraints(text, s_layout);
 
-        s_layout.insets = new Insets(10,10,10,10);
-        s_layout.gridwidth=0;
+        s_layout.insets = new Insets(20,10,10,0);//	top, left,  bottom, right
+        //s_layout.gridwidth=0;
         layout.setConstraints(getfilepath, s_layout);
         
-        s_layout.insets = new Insets(0,10,10,10);
+        s_layout.insets = new Insets(20,10,10,10);
+        s_layout.gridwidth=0;
         layout.setConstraints(Analysis, s_layout);
+        
+        s_layout.anchor= GridBagConstraints.WEST ;
+        layout.setConstraints(info_1, s_layout);
+        s_layout.insets = new Insets(0,10,10,20);
+        layout.setConstraints(info_2, s_layout);
+        s_layout.insets = new Insets(0,0,10,20);
+        layout.setConstraints(menubar, s_layout);
+
         
         /***s_layout.gridwidth=1;
         layout.setConstraints(showcitychart, s_layout);
@@ -126,7 +172,7 @@ public class Demo  extends JPanel{
 //选择日志文件按钮监听内容
 	private class GetfilepathActionListener implements ActionListener{  
         public void actionPerformed(ActionEvent e) {  
-            System.out.println("你按了按钮");   
+           // System.out.println("你按了按钮");   
             MyFile.showOpenDialog(null);  //弹出文件选择
             File f = MyFile.getSelectedFile();  //得到文件
             if(f != null){
@@ -145,7 +191,7 @@ public class Demo  extends JPanel{
 	//执行分析过程按钮监听内容
 	private class analysisActionListener implements ActionListener{  
         public void actionPerformed(ActionEvent e) {  
-            System.out.println("你按了确认");   
+            //System.out.println("你按了确认");   
 
             String theFilename=globleStatus.getFilename();//得到文件路径
             if(theFilename != null)
@@ -161,6 +207,19 @@ public class Demo  extends JPanel{
             }
 
     }
+	
+	private static class CreateOneActionListener implements ActionListener{  
+	    public void actionPerformed(ActionEvent e) {  
+	        //System.out.println("…");   
+	       
+	    } 
+	}
+	private static class CreateMultiActionListener implements ActionListener{  
+	    public void actionPerformed(ActionEvent e) {  
+	        //System.out.println("…");   
+	       
+	    } 
+	}
     }
     
 
