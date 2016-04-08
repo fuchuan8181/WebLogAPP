@@ -54,6 +54,7 @@ public class MyDialog extends JPanel {
 		fileType=globleStatus.getFileType();
 	
 		LogReadIFace obj=ObjectFactory.getLogFileOperationInstance(fileType);
+		
 		obj.readAndAnalysis(fileName); 
 
 

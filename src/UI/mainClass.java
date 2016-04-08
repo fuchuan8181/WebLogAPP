@@ -1,5 +1,9 @@
 package UI;
 
+import javax.swing.JFrame;
+
+import Gloable.globleStatus;
+
 public class mainClass {
 
 	/**
@@ -9,9 +13,10 @@ public class mainClass {
 		// TODO Auto-generated method stub
 		 javax.swing.SwingUtilities.invokeLater(new Runnable() {//事件派发线程
 	            public void run() {
-
-		MyDialog.createAndShowGUI();//创建UI界面
-
+	            	LoginDesign aDesign = new LoginDesign();
+	            	aDesign.createLoginUI();
+	            	//if(globleStatus.login)
+	            		//MyDialog.createAndShowGUI();//创建UI界面
 	            }
 	        });
 	}

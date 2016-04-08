@@ -1,5 +1,8 @@
 package Gloable;
 
+import java.util.List;
+import java.util.Vector;
+
 public class globleStatus {
 	
 	/****public static String[] sql_url =new String[10];
@@ -19,14 +22,21 @@ public class globleStatus {
 	public int status_num;//行为执行后的返回状态
 	
    private static String filename;
+   public static Vector<String> filenames;
+   public static List sort;
    public static int fileType;
   
    public static int regex_num = 5;
    public static String[] attack_regex = new String[regex_num];
+   public static boolean login = false;
+   public static boolean multi = false;
    //0 为sql注入
    //1 为xss跨站
    //2 为exec_command可执行目录
-   
+   public void addfiles(String a)
+   {
+	   filenames.add(a);
+   }
    public static int getFileType() {
 		return fileType;
 	}
