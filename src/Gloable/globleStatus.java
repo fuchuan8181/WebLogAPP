@@ -22,7 +22,7 @@ public class globleStatus {
 	public int status_num;//行为执行后的返回状态
 	
    private static String filename;
-   public static Vector<String> filenames;
+   public static Vector<String> filenames = new Vector<String>();
    public static List sort;
    public static int fileType;
   

@@ -54,8 +54,17 @@ public class MyDialog extends JPanel {
 		fileType=globleStatus.getFileType();
 	
 		LogReadIFace obj=ObjectFactory.getLogFileOperationInstance(fileType);
-		
-		obj.readAndAnalysis(fileName); 
+		if(globleStatus.multi)
+		{
+			for(int i = 0;i < globleStatus.filenames.size();i ++)
+			{
+				obj.readAndAnalysis(globleStatus.filenames.get(i)); 
+			}
+		}
+		else {
+			obj.readAndAnalysis(fileName); 
+		}
+
 
 
 		/*********************

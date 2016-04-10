@@ -32,7 +32,7 @@ public class IISLog implements LogReadIFace{
 			lItem.attr1="111";
 			instance.addElement(lItem);
 		}	*/
-		
+
 		File file = new File(fileName);
         BufferedReader reader = null;
         try {
@@ -164,5 +164,7 @@ public class IISLog implements LogReadIFace{
                 }
             }
         }
+
+		
 	}
 }

@@ -117,8 +117,7 @@ public class Demo  extends JPanel{
          JLabel label=new JLabel(new ImageIcon(urlString));
          
          JLabel info_1 = new JLabel("All right reserved.");
-         //JLabel info_2 = new JLabel("日志默认存放路径");
-         
+         JLabel info_2 = new JLabel("<html><p>注意事项:</p><p>&nbsp;&nbsp;&nbsp;&nbsp;在选取多个日志文件时,请确保文件夹中日志文件按时间排序.</p><html>");
          text.setPreferredSize(new Dimension (270,26));
          defaultpath = new JRadioButton("默认路径");
          defaultpath.addActionListener(new defaultActionListener());
@@ -134,8 +133,8 @@ public class Demo  extends JPanel{
         //this.add(info_2);
         PathChoose.add(defaultpath);
         PathChoose.add(Analysis);
+        PathChoose.add(info_2);
         PathChoose.add(info_1);
-        // this.add(info_2);
          //this.add(showattacktable);
          
          
@@ -165,8 +164,10 @@ public class Demo  extends JPanel{
         s_layout.gridwidth=0;
         layout.setConstraints(Analysis, s_layout);
         
+        s_layout.insets = new Insets(5,10,10,10);
         s_layout.anchor= GridBagConstraints.WEST ;
         layout.setConstraints(info_1, s_layout);
+        layout.setConstraints(info_2, s_layout);
         
         this.add(menubar,BorderLayout.NORTH);
         this.add(label,BorderLayout.CENTER);
@@ -242,8 +243,8 @@ public class Demo  extends JPanel{
             for(int i = 0;i < f.length;i ++){
             if(f != null ){
             	System.out.println(f[i].getAbsolutePath());   
-                //globleStatus.filenames.add(f[i].getAbsolutePath());//把日志的绝对路径给全局状态
-              // text.setText(globleStatus.getFilename());
+                globleStatus.filenames.add(f[i].getAbsolutePath());//把日志的绝对路径给全局状态
+               text.setText(text.getText()+";"+globleStatus.filenames.get(i));
             }
         }
           //清空以往数据
@@ -259,9 +260,15 @@ public class Demo  extends JPanel{
 	//执行分析过程按钮监听内容
 	private class analysisActionListener implements ActionListener{  
         public void actionPerformed(ActionEvent e) {  
-            //System.out.println("你按了确认");   
-        	
-            String theFilename=globleStatus.getFilename();//得到文件路径
+            //System.out.println("你按了确认");  
+            String theFilename;
+        	if(globleStatus.multi)
+        	{
+        		 theFilename=globleStatus.filenames.get(0);//得到文件路径
+        	}
+        	else{
+        		theFilename=globleStatus.getFilename();//得到文件路径
+        	}
             boolean log = true;
 
             if(theFilename == null )
