@@ -23,10 +23,10 @@ public class doc_Properties {
 			while(enum1.hasMoreElements()) {
 				String strKey = (String) enum1.nextElement();
 				//System.out.println(strKey);
-				byte[] result = prop.getProperty(strKey).getBytes();
-				byte[] decryResult = doc_Properties.decrypt(result, password);
-			    //globleStatus.attack_regex[count] = prop.getProperty(strKey);
-			    System.out.println("解密后："+new String(decryResult));
+				//byte[] result = prop.getProperty(strKey).getBytes();
+				//byte[] decryResult = doc_Properties.decrypt(result, password);
+			    globleStatus.attack_regex[count] = prop.getProperty(strKey);
+			    //System.out.println("解密后："+new String(decryResult));
 			    //System.out.println(globleStatus.attack_regex[count]);
 			    count++;
 			    }

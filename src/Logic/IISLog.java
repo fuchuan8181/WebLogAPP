@@ -141,9 +141,9 @@ public class IISLog implements LogReadIFace{
                 	 //System.out.println(iData.client_ip);
                 	 //System.out.println(iData.User_Agent);
                 	 //System.out.println(iData.status);
-                	// System.out.println(iData.address_full);
-     	      	     //System.out.println(iData.address_city);
-     	      	     //System.out.println(iData.address_ips);
+                	//System.out.println(iData.address_full);
+     	      	   System.out.println(iData.address_city);
+     	      	    //System.out.println(iData.address_ips);
      	      	     
                 	 list.addElement(iData);//存入中间变量Vector
                  }

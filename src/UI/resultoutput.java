@@ -4,24 +4,36 @@ package UI;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
+import java.awt.Insets;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import Chart.barChart;
 import Gloable.LogDataItem;
@@ -29,7 +41,9 @@ import Gloable.MiddleDataVector;
 import Gloable.execattacklist;
 import Gloable.sqlattacklist;
 import Gloable.xssattacklist;
+import Logic.ResultSave;
 import Logic.judgement;
+
 
 
 public class resultoutput {
@@ -39,6 +53,7 @@ public class resultoutput {
 	JTable content;
 	JButton showcitychart;//获取文件路径
 	JButton showattacktable;//分析文件
+	static javax.swing.JFileChooser MyFile=new javax.swing.JFileChooser();
 	
 	public  void saveobject(String a,String b,String c,String d,String e,String f,String g,String h,int i,Object[][] table){
 
@@ -62,13 +77,15 @@ public class resultoutput {
 	   	 JMenu StatisticMenu = new JMenu("统计");
 	   	 
 	   	JMenuItem SaveMenu= new JMenuItem("保存");
-      //CreateOneMenu.addActionListener(new CreateOneActionListener());
+      SaveMenu.addActionListener(new SaveActionListener());
       JMenuItem CloseMenu= new JMenuItem("关闭");
-      //CreateMultiMenu.addActionListener(new CreateMultiActionListener());
+      CloseMenu.addActionListener(new CloseActionListener());
       JMenuItem Acord2TimeMenu= new JMenuItem("按时间段查找");
+      Acord2TimeMenu.addActionListener(new Acord2TimeActionListener());
       JMenuItem Acord2IPAddMenu= new JMenuItem("按IP地址查找");
-      //JMenuItem ACord2AttackMenu= new JMenuItem("按攻击行为查找");
+      Acord2IPAddMenu.addActionListener(new Acord2IPAddActionListener());
       JMenuItem ACord2KeyMenu= new JMenuItem("按关键字查找");
+      ACord2KeyMenu.addActionListener(new Acord2KeyActionListener());
       JMenuItem StatisAddMenu= new JMenuItem("地域统计");
       StatisAddMenu.addActionListener(new cityActionListener());
       JMenuItem StaticURLMenu= new JMenuItem("URL统计");
@@ -145,16 +162,16 @@ public class resultoutput {
 		r.setHorizontalAlignment(JLabel.CENTER);   
 		content.setDefaultRenderer(Object.class,   r);
 		
-		showattacktable= new JButton("显示各URL遭受攻击次数");
-        showattacktable.addActionListener(new attackActionListener());
+		// showattacktable= new JButton("显示各URL遭受攻击次数");
+        //showattacktable.addActionListener(new attackActionListener());
         
         
-        showcitychart= new JButton("显示各城市遭受攻击次数");
-        showcitychart.addActionListener(new cityActionListener());
+       // showcitychart= new JButton("显示各城市遭受攻击次数");
+        //showcitychart.addActionListener(new cityActionListener());
 		
-		JPanel tit = new JPanel();
+		//JPanel tit = new JPanel();
 		JPanel con = new JPanel();
-		JPanel but = new JPanel();
+		//JPanel but = new JPanel();
 		
 		JScrollPane jScrollPane;
 		
@@ -174,13 +191,62 @@ public class resultoutput {
 
 	private class attackActionListener implements ActionListener{  
         public void actionPerformed(ActionEvent e) {  
-            //System.out.println("你按了攻击类型分析");   
             new table();
             }
     }
+	
+	private class CloseActionListener implements ActionListener{  
+        public void actionPerformed(ActionEvent e) {  
+        	result.setVisible(false);
+            }
+    }
+	private Object makeObj(final String item)  {
+	     return new Object() { public String toString() { return item; } };
+	   }
+	
+	private class Acord2TimeActionListener implements ActionListener{  
+        public void actionPerformed(ActionEvent e) {  
+        	TimeSelect TS = new TimeSelect();
+            }
+    }
+	
+	private class Acord2IPAddActionListener implements ActionListener{  
+        public void actionPerformed(ActionEvent e) {  
+        	String inputValue = JOptionPane.showInputDialog("请输入所要查询的IP地址:(格式xxx.xxx.xxx.xxx)");
+        	String regex = "(2[5][0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})";
+        	if(inputValue.matches(regex))
+        	{
+        		//查找
+        	}
+            }
+    }
+	
+	private class Acord2KeyActionListener implements ActionListener{  
+        public void actionPerformed(ActionEvent e) {  
+        	String inputValue = JOptionPane.showInputDialog("请输入所要查询的关键字:");
+            }
+    }
+	
+	private class SaveActionListener implements ActionListener{  
+        public void actionPerformed(ActionEvent e) {  
+
+
+        	MyFile.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);//只能选择目录
+        	File f=null;
+        	 
+        	 try{     
+        		 MyFile.showOpenDialog(null);  //弹出文件选择
+        		 }    
+             catch(HeadlessException head){     
+                  System.out.println("Open File Dialog ERROR!");    
+             }        
+                 f=MyFile.getSelectedFile();    
+                 ResultSave output = new ResultSave(f.getPath());
+            }
+    }
+	
 	private class cityActionListener implements ActionListener{  
         public void actionPerformed(ActionEvent e) {  
-            //System.out.println("你按了城市攻击分析");   
            barChart chart = new barChart();
     		chart.getBarChart();
             }

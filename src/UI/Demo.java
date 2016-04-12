@@ -130,7 +130,7 @@ public class Demo  extends JPanel{
          
         PathChoose.add(formatList);//把组件添加进jframe
         PathChoose.add(text);
-        //this.add(info_2);
+
         PathChoose.add(defaultpath);
         PathChoose.add(Analysis);
         PathChoose.add(info_2);

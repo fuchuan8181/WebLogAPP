@@ -85,24 +85,7 @@ public class barChart {
 		for (Map.Entry<String, Integer> entry : exec.entrySet()) {  
 			dataset.addValue( entry.getValue(), entry.getKey(), "Exec");
 		}
-			//System.out.println(city);
-			/*dataset.addValue(100, "苹果", "苹果");  
-        	dataset.addValue(200, "梨子", "梨子");  
-        	dataset.addValue(300, "葡萄", "葡萄");  
-        	dataset.addValue(400, "香蕉", "香蕉");  
-        	dataset.addValue(500, "荔枝", "荔枝");
-			dataset.addValue(14, city, "SQLi"); 
-			dataset.addValue(9, city, "XSS"); 
-			dataset.addValue(9, city, "DoS");
-			dataset.addValue(21, "天津市", "SQLi");
-			dataset.addValue(4, "天津市", "XSS");
-			dataset.addValue(4, "天津市", "DoS");
-			dataset.addValue(6, "上海市", "SQLi");
-			dataset.addValue(12, "上海市", "XSS");
-			dataset.addValue(12, "上海市", "DoS");
-			dataset.addValue(17, "北京市", "SQLi");
-			dataset.addValue(11, "北京市", "XSS");
-			dataset.addValue(11, "北京市", "DoS");*/
+
         return dataset;
 	}
 }
