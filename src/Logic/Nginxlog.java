@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import Gloable.LogDataItem;
 
@@ -24,7 +28,8 @@ public class Nginxlog implements LogReadIFace {
             	 String[] tempstring_array = tempString.split(" ");
             	 iData.client_ip = tempstring_array[0];
             	 iData.identified_name = tempstring_array[2];
-            	 iData.date = tempstring_array[3].replace("[","");
+ 		    	DateFormat df = new SimpleDateFormat("[dd/MMM/yyyy:hh:mm:ss", Locale.ENGLISH);
+ 				iData.date = df.parse(tempstring_array[3]);
             	 iData.request_method = tempstring_array[5].replace("\"","");
             	 iData.url_query = tempstring_array[6];
             	 iData.http_protocol = tempstring_array[7].replace("\"","");
@@ -51,7 +56,10 @@ public class Nginxlog implements LogReadIFace {
         reader.close();
     } catch (IOException e) {
         e.printStackTrace();
-    } finally {
+    } catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
         if (reader != null) {
             try {
                 reader.close();

@@ -30,6 +30,7 @@ public class globleStatus {
    public static String[] attack_regex = new String[regex_num];
    public static boolean login = false;
    public static boolean multi = false;
+   public static boolean getresult = false;
    //0 为sql注入
    //1 为xss跨站
    //2 为exec_command可执行目录

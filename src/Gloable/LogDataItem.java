@@ -1,5 +1,7 @@
 package Gloable;
 
+import java.util.Date;
+
 public class LogDataItem {
 	
 	public boolean bSQL=false;//SQL注入攻击
@@ -8,7 +10,7 @@ public class LogDataItem {
     public boolean bZK=false;//撞库攻击
     
     
-	public String date;//日期时间
+	public Date date;//日期时间
 	public String server_ip;//服务器ip
 	public String request_method;//请求方式
 	public String url_stem;//请求的url，被访问的资源

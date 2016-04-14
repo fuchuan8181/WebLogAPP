@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,7 +16,6 @@ import com.sun.org.apache.xml.internal.resolver.Catalog;
 
 import Gloable.LogDataItem;
 import Gloable.MiddleDataVector;
-import Gloable.Month;
 import Gloable.globleStatus;
 import IPSeeker.IPSeeker;
 import IPSeeker.getAddress;
@@ -92,7 +94,7 @@ public class IISLog implements LogReadIFace{
            
          getAddress getaddr = new getAddress();
       	 MiddleDataVector list=MiddleDataVector.getInstance();
-            	
+      	list.Clear();
            while ((tempString = reader.readLine()) != null) {
 
                 Matcher m_file = r_file.matcher(tempString);
@@ -101,21 +103,16 @@ public class IISLog implements LogReadIFace{
 
                     //日志信息存入中间向量
                 	 String tempstring_array[] = tempString.split(" ");//将读入文件行信息进行分割\
-                	 String datestring[] =tempstring_array[data_num.date_num].split("-") ;
 
-                	 
+                 	DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                      StringBuffer date = new StringBuffer();//将date和time信息拼接形成本系统标准时间信息
                      
-                     date.append(datestring[2]);
-         		     date.append("/");
-         		     date.append(Month.getName(Integer.valueOf(datestring[1]).intValue()));
-         		     date.append("/");
-         		     date.append(datestring[0]);
-         		     date.append(":");
+                     date.append(tempstring_array[data_num.date_num]);
+         		     date.append(" ");
                      date.append(tempstring_array[data_num.time_num]);
                      
                      iData=new LogDataItem();
-                     iData.date=date.toString();
+                     iData.date=df.parse(date.toString());
                 	 iData.server_ip=tempstring_array[data_num.server_ip_num];//服务器ip
                 	 iData. request_method=tempstring_array[data_num.request_method_num];//请求方式
                 	 
@@ -138,11 +135,11 @@ public class IISLog implements LogReadIFace{
                 	 //System.out.println(iData.url_stem);
                 	//System.out.println(iData.url_query);
                 	 //System.out.println(iData.server_port);
-                	 //System.out.println(iData.client_ip);
+                	 System.out.println(iData.client_ip);
                 	 //System.out.println(iData.User_Agent);
                 	 //System.out.println(iData.status);
                 	//System.out.println(iData.address_full);
-     	      	   System.out.println(iData.address_city);
+     	      	  //System.out.println(iData.address_city);
      	      	    //System.out.println(iData.address_ips);
      	      	     
                 	 list.addElement(iData);//存入中间变量Vector
@@ -156,7 +153,10 @@ public class IISLog implements LogReadIFace{
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
+        } catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
             if (reader != null) {
                 try {
                     reader.close();

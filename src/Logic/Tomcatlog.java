@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import Gloable.LogDataItem;
 import Gloable.MiddleDataVector;
@@ -34,7 +38,9 @@ public class Tomcatlog implements LogReadIFace {
 				iData.querystring = tempstring_array[9].replace(";", "");
 				iData.status = tempstring_array[13];
 				iData.session_ID = tempstring_array[14];
-				iData.date = tempstring_array[15].replace("[", "") + tempstring_array[16].replace("]", "");
+		    	DateFormat df = new SimpleDateFormat("[dd/MMM/yyyy:hh:mm:ss", Locale.ENGLISH);
+				iData.date = df.parse(tempstring_array[15]);
+
 				iData.identified_name = tempstring_array[17];
 				iData.url_query = tempstring_array[18];
 				iData.domain_name = tempstring_array[19];
@@ -79,6 +85,9 @@ public class Tomcatlog implements LogReadIFace {
 			}
 			reader.close();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

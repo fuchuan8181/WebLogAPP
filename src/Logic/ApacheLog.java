@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import Gloable.LogDataItem;
 import Gloable.MiddleDataVector;
@@ -25,7 +29,9 @@ public class ApacheLog implements LogReadIFace{
 				
 				iData.client_ip =  tempstring_array[0];
 				iData.isIdentityCheck = tempstring_array[1] + tempstring_array[2];
-				iData.date = tempstring_array[3].replace("[", "") + tempstring_array[4].replace("]", "");
+
+		    	DateFormat df = new SimpleDateFormat("[dd/MMM/yyyy:hh:mm:ss", Locale.ENGLISH);
+				iData.date = df.parse(tempstring_array[3]);
 				iData.request_method = tempstring_array[5].replace("\"", "");
 				iData.url_query = tempstring_array[6];
 				iData.http_protocol = tempstring_array[7].replace("\"", "");
@@ -67,6 +73,9 @@ public class ApacheLog implements LogReadIFace{
 			reader.close();
 		} 
 		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

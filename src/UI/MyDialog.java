@@ -52,6 +52,7 @@ public class MyDialog extends JPanel {
 
 		fileName=globleStatus.getFilename();
 		fileType=globleStatus.getFileType();
+
 	
 		LogReadIFace obj=ObjectFactory.getLogFileOperationInstance(fileType);
 		if(globleStatus.multi)
@@ -86,21 +87,12 @@ public class MyDialog extends JPanel {
 		//barChart chart = new barChart();
 		//chart.getBarChart();
 		//new table();
-		
+		/***
 		MiddleDataVector instance=MiddleDataVector.getInstance();
 		for (int i=0;i<instance.m_element.size();i++)
 		{
 			//有多条记录，每条记录单独执行一次循环体
 			LogDataItem lItem=(LogDataItem)(instance.m_element.get(i));
-			/****if (lItem.bSQL)
-			{
-				
-			}
-			if (lItem.bXSS)
-			{
-
-			}
-			***/
 		}
 
 		/*********************
@@ -108,7 +100,8 @@ public class MyDialog extends JPanel {
 		 * 输入：分析的结果
 		 * 输出：根据输出类型来决定所做的输出 
 		 * *******************/
-		resultoutput show = new  resultoutput();
+		globleStatus.getresult = true;
+
 	}
 
 }
