@@ -135,7 +135,7 @@ public class IISLog implements LogReadIFace{
                 	 //System.out.println(iData.url_stem);
                 	//System.out.println(iData.url_query);
                 	 //System.out.println(iData.server_port);
-                	 System.out.println(iData.client_ip);
+                	// System.out.println(iData.client_ip);
                 	 //System.out.println(iData.User_Agent);
                 	 //System.out.println(iData.status);
                 	//System.out.println(iData.address_full);

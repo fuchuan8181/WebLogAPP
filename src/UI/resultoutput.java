@@ -3,6 +3,7 @@ package UI;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
@@ -20,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -40,6 +42,7 @@ import Gloable.sqlattacklist;
 import Gloable.xssattacklist;
 import Logic.ResultSave;
 import Logic.judgement;
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 
 
 
@@ -141,6 +144,8 @@ public class resultoutput extends JDialog{
       StatisAddMenu.addActionListener(new cityActionListener());
       JMenuItem StaticURLMenu= new JMenuItem("URL统计");
       StaticURLMenu.addActionListener(new attackActionListener());
+      JMenuItem StatusMenu= new JMenuItem("响应码统计");
+      StatusMenu.addActionListener(new StatusActionListener());
       
       FileMenu.add(SaveMenu);
       FileMenu.add(CloseMenu);
@@ -149,6 +154,7 @@ public class resultoutput extends JDialog{
       SearchMenu.add(ACord2KeyMenu);
       StatisticMenu.add(StatisAddMenu);
       StatisticMenu.add(StaticURLMenu);
+      StatisticMenu.add(StatusMenu);
       
       menubar.add(FileMenu);
       menubar.add(SearchMenu);
@@ -260,7 +266,53 @@ public class resultoutput extends JDialog{
             }
     }
 	
+	private class StatusActionListener implements ActionListener{  
+        public void actionPerformed(ActionEvent e) {  //响应码的信息熵统计
+        	int sta_5xx = 0;
+        	int sta_401 = 0;
+        	int sta_404 = 0;
+        	MiddleDataVector vector = MiddleDataVector.getInstance();
+        	for(int i = 0;i < vector.size();i ++)
+        	{
+        		LogDataItem vItem = (LogDataItem)vector.m_element.get(i);
+        		int sta = Integer.parseInt(vItem.status);
+        		if(sta/100 == 5)
+        		{
+        			sta_5xx ++;
+        		}
+        		else if(sta == 401){
+        			sta_401 ++;
+        		}
+        		else if(sta == 404){
+        			sta_404 ++;
+        		}
+        	}
+        
+        	double p_5xx = (double) sta_5xx/vector.size();
+        	double p_401 = (double) sta_401/vector.size();
+        	double p_404 = (double) sta_404/vector.size();
+        	double p_other = (double) (1 - p_5xx - p_401 - p_404);
+        	
+        	double entropy_all  = (0 -  Math.log(p_5xx) * p_5xx) + (0 -  Math.log(p_401) * p_401) + 
+        			(0 -  Math.log(p_404) * p_404) + (0 -  Math.log(p_other) * p_other);
+        	double entropy_5xx =  (0 -  Math.log(p_5xx) * (p_5xx)) + (0 -  Math.log(1 - p_5xx) * (1 - p_5xx));
+        	double entropy_401 =  (0 -  Math.log(p_401) * (p_401)) + (0 -  Math.log(1 - p_401) * (1 - p_401)); ;
+        	double entropy_404 =  (0 -  Math.log(p_404) * (p_404)) + (0 -  Math.log(1 - p_404) * (1 - p_404));;
 
+        	JFrame entrop = new JFrame();
+        	entrop.setLayout(new FlowLayout());
+        	JLabel label_all = new JLabel("异常响应码的熵值" + entropy_all);
+        	JLabel label_5xx = new JLabel("响应码为5xx的熵值" + entropy_5xx);
+        	JLabel label_401 = new JLabel("响应码为401的熵值" + entropy_401);
+        	JLabel label_404 = new JLabel("响应码为404的熵值" + entropy_404);
+        	entrop.add(label_all);
+        	entrop.add(label_5xx);
+        	entrop.add(label_401);
+        	entrop.add(label_404);
+        	entrop.setSize(300, 133);
+        	entrop.setVisible(true);
+            }
+    }
     
     private void nextPanel(int type) {  //分流显示
         this.remove(con);  
