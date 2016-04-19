@@ -30,6 +30,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -299,17 +300,31 @@ public class resultoutput extends JDialog{
         	double entropy_401 =  (0 -  Math.log(p_401) * (p_401)) + (0 -  Math.log(1 - p_401) * (1 - p_401)); ;
         	double entropy_404 =  (0 -  Math.log(p_404) * (p_404)) + (0 -  Math.log(1 - p_404) * (1 - p_404));;
 
-        	JFrame entrop = new JFrame();
-        	entrop.setLayout(new FlowLayout());
-        	JLabel label_all = new JLabel("异常响应码的熵值" + entropy_all);
-        	JLabel label_5xx = new JLabel("响应码为5xx的熵值" + entropy_5xx);
-        	JLabel label_401 = new JLabel("响应码为401的熵值" + entropy_401);
-        	JLabel label_404 = new JLabel("响应码为404的熵值" + entropy_404);
-        	entrop.add(label_all);
-        	entrop.add(label_5xx);
-        	entrop.add(label_401);
-        	entrop.add(label_404);
-        	entrop.setSize(300, 133);
+        	JDialog entrop = new JDialog();
+
+        	JTable  en;
+    		String[] columnTitle = {"响应码", "熵值"};
+
+        	Object[][] table = new Object[4][2];  
+        	table[0][0] = "所有异常响应码";
+        	table[1][0] = "5xx";
+        	table[2][0] = "401";
+        	table[3][0] = "404";
+        	table[0][1] = entropy_all;//0.37677016125643675
+        	table[1][1] = entropy_5xx;
+        	table[2][1] = entropy_401;
+        	table[3][1] = entropy_404;
+        	
+        	en = new JTable(table, columnTitle);
+        	en.setRowHeight(30);
+        	JScrollPane jScrollPane =  new JScrollPane(en);
+        	jScrollPane.setPreferredSize(new Dimension(400, 160));
+        	DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();// 设置table内容居中
+        	  tcr.setHorizontalAlignment(SwingConstants.CENTER);// 这句和上句作用一样
+        	  en.setDefaultRenderer(Object.class, tcr);
+        	//en.setPreferredScrollableViewportSize(new Dimension(500, 309));  
+        	entrop.add( jScrollPane);
+        	entrop.pack();
         	entrop.setVisible(true);
             }
     }
