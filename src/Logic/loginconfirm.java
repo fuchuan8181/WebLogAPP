@@ -6,18 +6,17 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 import Gloable.globleStatus;
+import UI.Demo;
 import UI.LoginDesign;
 import UI.MyDialog;
 
 public class loginconfirm {
     public loginconfirm(String info)
     {
-	    String fileContent = "";     
 
-	    StringBuffer content = new StringBuffer();
 	    try   
 	    {       
-	        File f = new File("login\\logininfomation");      
+	        File f = new File("login//logininfomation");      
 	        if(f.isFile()&&f.exists())  
 	             {
 	                     InputStreamReader read = new InputStreamReader(new FileInputStream(f),"gbk");       
@@ -25,14 +24,14 @@ public class loginconfirm {
 	                     String line;       
 	                     while ((line = reader.readLine()) != null) 
 	                     {
+		        	         System.out.println(line);
 	             	        if(info.equals(line))
 	            	        {
 	             	        	globleStatus.login = true;
 	             	        	break;
 	            	       }
 	                     }
-	                     fileContent = content.toString();
-	        //System.out.println(fileContent);
+
 	                     read.close();
 	                     }
 	        } catch (Exception e)
@@ -42,7 +41,7 @@ public class loginconfirm {
 	      if(globleStatus.login)
 	      {
 	    	  LoginDesign.closelogin();
-		        MyDialog.createAndShowGUI();//创建UI界面	
+          	  Demo aDemo = new Demo();//创建UI界面	
 	      }
 	      else
 	    	  LoginDesign.shorerror();

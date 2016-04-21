@@ -4,8 +4,8 @@
 	<classpathentry kind="src" path="login"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry kind="lib" path="C:/Users/dell/Desktop/jcommon-1.0.23/jcommon-1.0.23/jcommon-1.0.23.jar"/>
-	<classpathentry kind="lib" path="C:/Users/dell/Desktop/jcommon-1.0.23/jcommon-1.0.23/jcommon-xml-1.0.23.jar"/>
-	<classpathentry kind="lib" path="C:/Users/dell/Desktop/yuel瑜/jfreechart-1.0.19/jfreechart-1.0.19-demo.jar"/>
+	<classpathentry kind="lib" path="/Users/emigrante/Documents/我是包/jfreechart-1.0.19/jfreechart-1.0.19-demo.jar"/>
+	<classpathentry kind="lib" path="/Users/emigrante/Documents/我是包/jcommon-1.0.23/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="/Users/emigrante/Documents/我是包/jcommon-1.0.23/jcommon-xml-1.0.23.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -3,6 +3,7 @@ package UI;
 
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -32,7 +33,7 @@ import javax.swing.*;
 
 
 
-public class Demo  extends JPanel{
+public class Demo  extends JFrame{
 	//JLabel filepath;//显示文本，图像，或两者兼而有
 	
 	final static JComboBox<String> yearList2 = new JComboBox<String>();
@@ -64,7 +65,7 @@ public class Demo  extends JPanel{
 	JRadioButton defaultpath;
 	String[] formatStrings = { "IIS", "Apache", "Nginx", "Tomcat" };
 	
-    String urlString="C://Users//dell//Desktop//论文答辩//log2.png";  
+    String urlString="picture//log1.png";  
     JLabel label=new JLabel(new ImageIcon(urlString));
     
     JLabel info_1 = new JLabel("All right reserved.");
@@ -87,7 +88,17 @@ public class Demo  extends JPanel{
 	
 	public Demo()
 	{
-		super(new BorderLayout());
+        this.setTitle("Web日志审计系统");//构造框架
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//指定关闭按钮退出应用程序？
+
+
+		ImageIcon bg = new ImageIcon("picture//mainbackground.png");
+		JLabel imgLabel = new JLabel(bg);
+		this.getLayeredPane().add(imgLabel, new Integer(Integer.MIN_VALUE));
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        imgLabel.setBounds(0,0,bg.getIconWidth(), bg.getIconHeight());//设置背景标签的位置
+        
+        Container MainPanel=this.getContentPane();  
 		
 		
 		JMenuBar menubar = new JMenuBar();
@@ -118,6 +129,7 @@ public class Demo  extends JPanel{
        SaveResultMenu.addActionListener(new SaveActionListener());
        JMenuItem UpdatePropertiesMenu= new JMenuItem("更新特征库");
        JMenuItem AboutMenu= new JMenuItem("版本信息");
+       AboutMenu.addActionListener(new AboutActionListener());
        
        NewMenu.add(CreateOneMenu);
        NewMenu.add(CreateMultiMenu);
@@ -202,7 +214,7 @@ public class Demo  extends JPanel{
         s_layout.gridwidth=0;
         layout.setConstraints(label, s_layout);
         
-        s_layout.insets = new Insets(10,5,0,0);
+        s_layout.insets = new Insets(10,0,0,0);
         s_layout.gridwidth=1;//该方法是设置组件水平所占用的格子数，如果为0，就说明该组件是该行的最后一个
         s_layout.weightx = 0;//该方法设置组件水平的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
         s_layout.weighty=0;//该方法设置组件垂直的拉伸幅度，如果为0就说明不拉伸，不为0就随着窗口增大进行拉伸，0到1之间
@@ -216,19 +228,30 @@ public class Demo  extends JPanel{
         //s_layout.gridwidth=0;
        // layout.setConstraints(getfilepath, s_layout);
         
-        s_layout.insets = new Insets(20,10,10,10);
+        s_layout.insets = new Insets(20,10,10,0);
         s_layout.gridwidth=0;
+
         layout.setConstraints(Analysis, s_layout);
         
-        s_layout.insets = new Insets(5,10,10,10);
         s_layout.anchor= GridBagConstraints.WEST ;
-        layout.setConstraints(info_1, s_layout);
-        layout.setConstraints(info_2, s_layout);
+
+        s_layout.insets = new Insets(5,30,5,0);
         layout.setConstraints(info_3, s_layout);
+        layout.setConstraints(info_2, s_layout);
+        s_layout.insets = new Insets(5,20,25,0);
+        layout.setConstraints(info_1, s_layout);
+
         
-        this.add(menubar,BorderLayout.NORTH);
-        this.add(label,BorderLayout.CENTER);
-        this.add(PathChoose,BorderLayout.SOUTH);
+        MainPanel.add(menubar,BorderLayout.NORTH);
+        //MainPanel.add(label,BorderLayout.CENTER);
+        MainPanel.add(PathChoose,BorderLayout.SOUTH);
+        ((JPanel)MainPanel).setOpaque(false); //注意这里，将内容面板设为透明。这样LayeredPane面板中的背景才能显示出来。 
+        ((JPanel)PathChoose).setOpaque(false); //注意这里，将内容面板设为透明。这样LayeredPane面板中的背景才能显示出来。 
+
+
+
+        this.setSize(658,530);
+        this.setVisible(true);//设为可见
 	}
 	
 	public void setRadioButton(int i)
@@ -580,6 +603,37 @@ public class Demo  extends JPanel{
         	}
         } 
     }
+	
+	private class AboutActionListener implements ActionListener{  
+        public void actionPerformed(ActionEvent e) {  
+        	JDialog aboutDialog = new JDialog();
+    		ImageIcon bg = new ImageIcon("picture//aboutbg.jpeg");
+    		JLabel imgLabel = new JLabel(bg);
+    		aboutDialog.getLayeredPane().add(imgLabel, new Integer(Integer.MIN_VALUE));
+            imgLabel.setBounds(0,0,bg.getIconWidth(), bg.getIconHeight());//设置背景标签的位置
+            Container AboutPanel=aboutDialog.getContentPane();  
+    		JLabel aJLabel= new JLabel("版本：v1.0");
+    		JLabel bJLabel= new JLabel("联系方式:onlyerir@163.com");
+
+            GridBagLayout layout = new GridBagLayout();
+            AboutPanel.setLayout(layout);
+            AboutPanel.add(aJLabel);
+            AboutPanel.add(bJLabel);
+
+            GridBagConstraints s_layout= new GridBagConstraints();
+            s_layout.anchor= GridBagConstraints.WEST ;
+            s_layout.insets = new Insets(230,0,0,300);//top, left,  bottom, right
+            s_layout.gridwidth=0;//该方法是设置组件水平所占用的格子数，如果为0，就说明该组件是该行的最后一个
+            layout.setConstraints(aJLabel, s_layout);
+            s_layout.insets = new Insets(10,0,0,300);//top, left,  bottom, right
+            layout.setConstraints(bJLabel, s_layout);
+            
+            ((JPanel)AboutPanel).setOpaque(false); //注意这里，将内容面板设为透明。这样LayeredPane面板中的背景才能显示出来。 
+
+    		aboutDialog.setSize(500,400);
+    		aboutDialog.setVisible(true);;        } 
+    }
+	
 	public  void dothat()
 	{
 		if(globleStatus.getresult){
